@@ -42,6 +42,13 @@ input,select{font:inherit;padding:9px 10px;border:1px solid var(--ln);border-rad
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.c ul{margin:4px 0 8px;padding-left:18px}
 .rt{color:#c62828}
 .c .nd{color:var(--mu);font-size:1.15rem}
+.gc{text-decoration:none;display:flex;flex-direction:column;gap:6px}.gc span{font-size:1.35rem}.pb{font-style:normal;font-weight:600;color:var(--bl)}.bk{display:inline-block;margin-bottom:8px}
+.op{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1px solid var(--ln);border-radius:4px;background:var(--sf);color:var(--tx);font:inherit;font-weight:600;cursor:pointer}.op:hover:not(:disabled){border-color:var(--bl)}
+.btn{cursor:pointer;margin:6px 6px 6px 0;padding:10px 16px;border:1px solid var(--bl);border-radius:4px;background:var(--bl);color:var(--ob);font:inherit;font-weight:600}
+.ok{border-color:#2e9e57!important;background:color-mix(in srgb,#2e9e57 22%,var(--sf))!important;animation:pop .35s}
+.ko{border-color:#d0392f!important;background:color-mix(in srgb,#d0392f 20%,var(--sf))!important;animation:sh .35s}
+@keyframes pop{50%{transform:scale(1.03)}}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media(prefers-reduced-motion:reduce){.ok,.ko{animation:none}}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .rt{color:#ff7a70}}
 :root[data-theme="dark"] .rt{color:#ff7a70}
 .w{overflow-x:auto;background:var(--sf);border:1px solid var(--ln);border-radius:4px}
@@ -54,7 +61,7 @@ a{color:var(--bl)}.nt{color:var(--mu);max-width:65ch}
 li{margin:4px 0}
 </style></head><body>
 <header class="hd"><img class="logo" src="logo-namf.png" alt="Liga NAMF"><div><h1 class="sr">Liga NAMF</h1><p class="nt" style="margin:0">Rocket League 2v2, temporadas 1 a 3</p><div class="bar"></div></div></header>
-<nav><a href="#inicio">Inicio</a><a href="#t1">Temporada 1</a><a href="#t2">Temporada 2</a><a href="#t3">Temporada 3</a><a href="#partidos">Partidos</a><a href="#comparador">Comparador</a><a href="#records">Récords</a><a href="#jugadores">Jugadores</a></nav>
+<nav><a href="#inicio">Inicio</a><a href="#t1">Temporada 1</a><a href="#t2">Temporada 2</a><a href="#t3">Temporada 3</a><a href="#partidos">Partidos</a><a href="#comparador">Comparador</a><a href="#records">Récords</a><a href="#minijuegos">Minijuegos</a><a href="#jugadores">Jugadores</a></nav>
 <main id="v"></main>
 <script>
 const R={
@@ -184,10 +191,68 @@ return `<h2>Récords históricos</h2><p class="nt">Se calculan solos con los dat
 +sec("Récords de partidos",[mt("Partido con más goles",()=>1,m=>m.hg+m.ag),mt("Mayor goleada",()=>1,m=>Math.abs(m.hg-m.ag)),cd("Mayor remontada",null,null,"No se registra el marcador minuto a minuto."),mt("Final con más goles",fin,m=>m.hg+m.ag),mt("Final más ajustada",fin,m=>Math.abs(m.hg-m.ag),0),cd("Mayor cantidad de goles en una prórroga",null,null,"Solo se registra qué partidos fueron a prórroga, no cuántos goles hubo en ella.")])
 +sec("Récords de temporadas",[tr("Mayor cantidad de puntos",x=>x.pt),tr("Mayor diferencia de goles",x=>x.gf-x.ge),tr("Mayor cantidad de victorias",x=>x.g),tr("Mayor cantidad de goles recibidos",x=>x.ge),em&&em.v?cd("Mayor cantidad de empates",em,tk):`<div class="c"><b>Mayor cantidad de empates</b><span>0</span><small>No hubo empates en ninguna Liga</small></div>`,tr("Mayor cantidad de derrotas",x=>x.p)])
 +`<p class="nt">Notas: se cuenta como final la final de Copa y la Supercopa. Los récords por partido usan solo los partidos con estadísticas (en la T2 faltan 2 partidos de Copa sin repetición, y en el partido APELO FC contra Einchenwalde Kriegers de la T3 las estadísticas son aproximadas). Las rachas de goles cruzan temporadas: en la T1 se toma que cada jugador jugó todos los partidos de su equipo, y un partido sin estadísticas corta la racha. Los equipos se cuentan por nombre y pueden tener otros integrantes en cada temporada. Las victorias, los goles y las rachas de equipo incluyen Liga, Copa y Supercopa. Los récords de temporadas usan la tabla de la Liga, y la T3 quedó incompleta.</p>`}
+const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>[...a].sort(()=>Math.random()-.5),
+GN={quien:["🕵️","¿Quién es el jugador?","Descubrí al jugador misterioso con pistas que se van sumando."],mas:["🆚","¿Quién tiene más?","Elegí quién tiene el valor más alto y armá tu racha."],trivia:["❓","Trivia NAMF","10 preguntas sobre la historia de la liga."],pron:["🎯","Pronósticos","Pronosticá resultados antes de que empiece cada partido."],temp:["📅","¿De qué temporada es?","Adiviná a qué temporada pertenece cada dato."]},
+ld=()=>{try{return JSON.parse(localStorage.getItem("namf-mj")||"{}")}catch(e){return{}}},
+sv=o=>{try{localStorage.setItem("namf-mj",JSON.stringify(o))}catch(e){}},
+MM=()=>K.flatMap(k=>P[k].map(s=>{const[r,m]=s.split("|"),x=m.match(/^(.+?) (\d+)-(\d+)(?: \(OT\))? (.+?)(?: \((?:abandono|abandonado)[^)]*\))?$/);return x?{k,r,m,h:x[1],hg:+x[2],ag:+x[3],a:x[4]}:null}).filter(Boolean)),
+UP=[],
+bk=`<a class="bk" href="#minijuegos">← Minijuegos</a>`,
+fin=(g,sc,mx,ex)=>{const o=ld(),n=o.n||"Jugador";o.h=[{g,sc,mx,ex,t:Date.now(),n},...(o.h||[])].slice(0,40);o.b=o.b||{};const k=n+"|"+g;if(sc>(o.b[k]||0))o.b[k]=sc;if(g=="mas"){o.s=o.s||{};if(ex>(o.s[n]||0))o.s[n]=ex}sv(o)},
+ppts=(o,n)=>{let t=0;Object.entries(o.p||{}).forEach(([key,v])=>{if(!key.startsWith(n+"|"))return;const u=UP.find(x=>x.id==key.slice(n.length+1));if(!u)return;const r=MM().find(m=>m.k==u.k&&m.h==u.h&&m.a==u.a);if(!r)return;t+=v.h==r.hg&&v.a==r.ag?5:Math.sign(v.h-v.a)==Math.sign(r.hg-r.ag)?2:0});return t},
+rk=o=>{const m={};Object.entries(o.b||{}).forEach(([k,v])=>{const n=k.split("|")[0];m[n]=(m[n]||0)+v});Object.keys(o.p||{}).forEach(k=>{const n=k.split("|")[0];m[n]=m[n]||0});Object.keys(m).forEach(n=>{m[n]+=ppts(o,n)});return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+let Q1=null,Q2=null,Q3=null,Q5=null;
+const r1=()=>{$("#v").innerHTML=g1()},r2=()=>{$("#v").innerHTML=g2()},r3=()=>{$("#v").innerHTML=g3()},r4=()=>{$("#v").innerHTML=g4()},r5=()=>{$("#v").innerHTML=g5()};
+window.mn=v=>{const o=ld();o.n=v.replace(/\|/g,"").trim().slice(0,20);sv(o);$("#v").innerHTML=mj("")};
+function mj(s){if(s=="quien")return g1();if(s=="mas")return g2();if(s=="trivia")return g3();if(s=="pron")return g4();if(s=="temp")return g5();
+Q1=Q2=Q3=Q5=null;const o=ld(),me=o.n||"Jugador",R2=rk(o);
+return `<h2>Minijuegos</h2><p class="nt">Los puntajes de los minijuegos son aparte de las estadísticas de la liga: jugar no las modifica. Se guardan en este dispositivo.</p>
+<label>Tu nombre<input value="${o.n||""}" placeholder="Jugador" onchange="mn(this.value)"></label>
+<div class="g" style="margin-top:12px">${Object.entries(GN).map(([g,[i,t,d]])=>`<a class="c gc" href="#minijuegos-${g}"><span>${i} ${t}</span><small>${d}</small><em class="pb">Jugar</em></a>`).join("")}</div>
+<h3>Tus récords</h3>${tbl(["Juego","Mejor puntaje"],Object.entries(GN).map(([g,v])=>[v[1],g=="pron"?ppts(o,me):(o.b||{})[me+"|"+g]||0]))}<p class="nt">Mejor racha en ¿Quién tiene más?: ${(o.s||{})[me]||0}</p>
+<h3>Ranking en este dispositivo</h3>${R2.length?tbl(["Nombre","Puntos"],R2):`<p class="nt">Todavía no hay puntajes.</p>`}
+<h3>Últimas partidas</h3>${(o.h||[]).length?tbl(["Jugador","Juego","Puntaje"],o.h.slice(0,10).map(x=>[x.n,GN[x.g][1],x.sc+(x.mx?" de "+x.mx:"")])):`<p class="nt">Todavía no jugaste.</p>`}`}
+function g1(){if(!Q1)Q1={n:rnd(ALL),i:1,s:0,m:""};const n=Q1.n,d=pd(n,K),t=d.t,
+cl=[`Jugó en ${d.ss.map(k=>D[k].s).join(", ")}.${RT.includes(n)?" Ya está retirado.":""}`,`Equipos: ${[...new Set(d.ss.map(k=>tm(k,n)))].join(", ")}.`,`Hizo ${t[1]} goles y ${t[2]} asistencias en ${t[0]} partidos.`,`Ganó ${t[6]} MVP, con ${t[3]} salvadas y ${t[4]} salvadas épicas.`,`Títulos de equipo: ${d.col.length?d.col.join(", "):"ninguno"}. Premios individuales: ${d.ind.length?d.ind.join(", "):"ninguno"}.`,`Su nombre tiene ${n.length} letras y empieza con ${n[0]}.`];
+return `${bk}<h2>¿Quién es el jugador?</h2><p class="nt">Cada intento fallido muestra una pista más. Cuantas menos pistas uses, más puntos ganas (hasta 6).</p>${cl.slice(0,Q1.i).map((c,i)=>`<div class="c"><b>Pista ${i+1}</b><small>${c}</small></div>`).join("")}${Q1.m?`<p class="nt">“${Q1.m}” no es el jugador.</p>`:""}${Q1.s?`<div class="c ${Q1.s>0?"ok":"ko"}" style="margin-top:10px"><b>${Q1.s>0?"¡Correcto! +"+Q1.s+" puntos":"Se acabaron las pistas. Era:"}</b><span>${L(n)}</span></div><p><button class="btn" onclick="Q1=null;r1()">Jugar otra vez</button></p>`:`<datalist id="gl">${ALL.map(x=>`<option value="${x}">`).join("")}</datalist><p><input id="gi" list="gl" placeholder="Escribí el nombre" onkeydown="if(event.key=='Enter')g1a()"></p><p><button class="btn" onclick="g1a()">Adivinar</button> Intento ${Q1.i} de 6</p>`}`}
+window.g1a=()=>{const v=$("#gi").value;if(!v.trim())return;if(slug(v)==slug(Q1.n)){Q1.s=7-Q1.i;Q1.m="";fin("quien",Q1.s,6)}else{Q1.m=v;if(Q1.i>=6){Q1.s=-1;fin("quien",0,6)}else Q1.i++}r1()};
+const CT=[["goles",1],["asistencias",2],["MVP",6],["tiros",5],["salvadas",3],["salvadas épicas",4],["partidos jugados",0]],
+nq=()=>{const c=rnd(CT);let a,b,x,y;do{a=rnd(ALL);b=rnd(ALL.filter(z=>z!=a));x=pd(a,K).t[c[1]];y=pd(b,K).t[c[1]]}while(x==y);return{a,b,c,x,y,r:null}};
+function g2(){if(!Q2)Q2={sc:0,st:0,bs:0,q:nq(),over:false};const q=Q2.q,w=q.x>q.y?"a":"b",
+bt=p=>`<button class="op ${q.r?(p==w?"ok":q.r==p?"ko":""):""}" ${q.r?"disabled":""} onclick="g2a('${p}')">${q[p]}${q.r?" ("+(p=="a"?q.x:q.y)+")":""}</button>`;
+return `${bk}<h2>¿Quién tiene más?</h2><p class="nt">Con las estadísticas de toda la historia de la liga. Cada acierto suma 10 puntos y un error termina la partida.</p><div class="c"><b>Puntos: ${Q2.sc} | Racha: ${Q2.st} | Mejor racha: ${Q2.bs}</b><span>¿Quién tiene más ${q.c[0]}?</span></div>${bt("a")}${bt("b")}${q.r?(Q2.over?`<p><b>Fin de la partida: ${Q2.sc} puntos.</b></p><button class="btn" onclick="Q2=null;r2()">Jugar de nuevo</button>`:`<button class="btn" onclick="Q2.q=nq();r2()">Siguiente</button>`):""}`}
+window.g2a=p=>{const q=Q2.q;if(q.r)return;q.r=p;if(p==(q.x>q.y?"a":"b")){Q2.sc+=10;Q2.st++;Q2.bs=Math.max(Q2.bs,Q2.st)}else{Q2.over=true;fin("mas",Q2.sc,0,Q2.bs)}r2()};
+const q3=()=>{const out=[],mm=MM(),tms=k=>Object.keys(R[k]),pls=k=>D[k].st.map(r=>r[0]),
+mk=(q,c,pool)=>{const o=[...new Set(pool)].filter(x=>x!=c);if(o.length>=3)out.push({q,c,o:shuf([c,...shuf(o).slice(0,3)])})},fn=mm.filter(m=>m.r=="Copa, final"||m.r=="Supercopa").map(m=>m.m);
+K.forEach(k=>{const d=D[k];Object.entries(d.ch).forEach(([c,t])=>mk(`¿Qué equipo ganó la ${c} de la ${d.n}?`,t,tms(k)));
+d.aw.forEach(([a,n])=>mk(`¿Quién ganó el premio “${a}” de la ${d.n}?`,n,pls(k)));
+const f=mm.find(m=>m.k==k&&m.r=="Copa, final"),s=mm.find(m=>m.k==k&&m.r=="Supercopa"),t0=rnd(tms(k));
+if(f)mk(`¿Cómo terminó la final de Copa de la ${d.n}?`,f.m,fn);if(s)mk(`¿Cómo terminó la Supercopa de la ${d.n}?`,s.m,fn);
+mk(`¿Qué jugador integraba ${t0} en la ${d.n}?`,rnd(R[k][t0]),pls(k).filter(x=>!R[k][t0].includes(x)))});
+const tg=ALL.map(n=>[n,pd(n,K).t[1]]).sort((a,b)=>b[1]-a[1]),tv=ALL.map(n=>[n,pd(n,K).t[6]]).sort((a,b)=>b[1]-a[1]);
+if(tg[0][1]>tg[1][1])mk("¿Quién es el máximo goleador histórico de la liga?",tg[0][0],ALL);if(tv[0][1]>tv[1][1])mk("¿Quién tiene más MVP en toda la historia de la liga?",tv[0][0],ALL);
+return shuf(out)};
+function g3(){if(!Q3)Q3={qs:q3().slice(0,10),i:0,ok:0,a:null};const t=Q3.qs.length;
+if(Q3.i>=t){const p=Math.round(Q3.ok/t*100);return `${bk}<h2>Trivia NAMF</h2><div class="c ok"><span>${Q3.ok*10} puntos</span><small>Correctas: ${Q3.ok} | Incorrectas: ${t-Q3.ok} | Aciertos: ${p}%</small></div><p><button class="btn" onclick="Q3=null;r3()">Jugar otra vez</button></p>`}
+const q=Q3.qs[Q3.i];return `${bk}<h2>Trivia NAMF</h2><p class="nt">Pregunta ${Q3.i+1} de ${t} | Puntos: ${Q3.ok*10}</p><div class="c"><span>${q.q}</span></div>${q.o.map(o=>`<button class="op ${Q3.a?(o==q.c?"ok":Q3.a==o?"ko":""):""}" ${Q3.a?"disabled":""} onclick="g3a(this.dataset.o)" data-o="${o.replace(/"/g,"&quot;")}">${o}</button>`).join("")}${Q3.a?`<button class="btn" onclick="Q3.i++;Q3.a=null;r3()">${Q3.i+1>=t?"Ver resultado":"Siguiente"}</button>`:""}`}
+window.g3a=o=>{const q=Q3.qs[Q3.i];if(Q3.a)return;Q3.a=o;if(o==q.c)Q3.ok++;if(Q3.i+1>=Q3.qs.length)fin("trivia",Q3.ok*10,Q3.qs.length*10);r3()};
+function g4(){const o=ld(),me=o.n||"Jugador",mm=MM(),now=Date.now();
+return `${bk}<h2>Pronósticos</h2><p class="nt">Sumas 5 puntos por acertar el resultado exacto y 2 por acertar quién gana. Cada pronóstico se bloquea cuando empieza el partido.</p>`+(UP.length?UP.map(u=>{const p=(o.p||{})[me+"|"+u.id],lock=now>=new Date(u.t).getTime(),r=mm.find(m=>m.k==u.k&&m.h==u.h&&m.a==u.a),pt=p&&r?(p.h==r.hg&&p.a==r.ag?5:Math.sign(p.h-p.a)==Math.sign(r.hg-r.ag)?2:0):null;
+return `<div class="c"><b>${D[u.k]?D[u.k].s+", ":""}${u.r}</b><span>${u.h} vs ${u.a}</span><small>${r?`Resultado oficial: ${r.hg}-${r.ag}. ${p?"Tu pronóstico: "+p.h+"-"+p.a+" (+"+pt+")":"No pronosticaste."}`:lock?`Cerrado. ${p?"Tu pronóstico: "+p.h+"-"+p.a:"No pronosticaste."}`:`Cierra el ${new Date(u.t).toLocaleString("es-AR")}`}</small>${!r&&!lock?`<div class="cs"><input type="number" min="0" id="ph-${u.id}" value="${p?p.h:""}" placeholder="${u.h}"><input type="number" min="0" id="pa-${u.id}" value="${p?p.a:""}" placeholder="${u.a}"></div><button class="btn" onclick="g4s('${u.id}')">Guardar pronóstico</button>`:""}</div>`}).join(""):`<div class="c"><span>Todavía no hay partidos para pronosticar</span><small>Los partidos aparecen acá cuando se cargan los próximos enfrentamientos (por ejemplo, la fecha 1 de la T4) con su día y hora de inicio.</small></div>`)+`<p class="nt">Tus puntos de pronósticos: ${ppts(o,me)}</p>`}
+window.g4s=id=>{const u=UP.find(x=>x.id==id);if(!u||Date.now()>=new Date(u.t).getTime()){r4();return}const h=$("#ph-"+id).value,a=$("#pa-"+id).value;if(h===""||a==="")return;const o=ld(),me=o.n||"Jugador";o.p=o.p||{};o.p[me+"|"+id]={h:+h,a:+a,ts:Date.now()};sv(o);r4()};
+const i5=()=>{const mm=MM(),t=rnd([0,1,2]);
+if(t==0){const rs=K.flatMap(k=>D[k].st.map(r=>({k,r}))).filter(x=>K.filter(j=>D[j].st.some(y=>y[0]==x.r[0])).length>1&&!K.some(j=>j!=x.k&&D[j].st.some(y=>y[0]==x.r[0]&&y[2]==x.r[2]))),x=rnd(rs),r=x.r;return{k:x.k,c:[`${r[0]} hizo ${r[2]} goles en una temporada.`,`Esa temporada dio ${r[3]} asistencias.`,`Jugó ${r[1]} partidos y ganó ${r[7]} MVP.`]}}
+if(t==1){const m=rnd(mm);return{k:m.k,c:[`Se jugó este partido: ${m.m}`,`Fue en la ronda “${m.r}”.`]}}
+const k=rnd(K),c=rnd(Object.keys(D[k].ch)),t0=D[k].ch[c];return{k,c:[`${t0} fue campeón de ${c}.`,`Lo integraban ${R[k][t0].join(" y ")}.`]}};
+function g5(){if(!Q5)Q5={n:0,sc:0,it:i5(),c:1,a:null};const it=Q5.it,N=8;
+if(Q5.n>=N)return `${bk}<h2>¿De qué temporada es?</h2><div class="c ok"><span>${Q5.sc} puntos</span><small>Máximo posible: ${N*3}</small></div><p><button class="btn" onclick="Q5=null;r5()">Jugar otra vez</button></p>`;
+return `${bk}<h2>¿De qué temporada es?</h2><p class="nt">Ronda ${Q5.n+1} de ${N} | Puntos: ${Q5.sc}. Con menos pistas ganas más puntos.</p>${it.c.slice(0,Q5.c).map((x,i)=>`<div class="c"><b>Pista ${i+1}</b><small>${x}</small></div>`).join("")}<div style="margin-top:10px">${K.map(k=>`<button class="op ${Q5.a?(k==it.k?"ok":Q5.a==k?"ko":""):""}" ${Q5.a?"disabled":""} onclick="g5a('${k}')">${D[k].n}</button>`).join("")}</div>${Q5.a?`<button class="btn" onclick="g5n()">${Q5.n+1>=N?"Ver resultado":"Siguiente"}</button>`:(Q5.c<it.c.length?`<button class="btn" onclick="Q5.c++;r5()">Pedir otra pista</button>`:"")}`}
+window.g5a=k=>{if(Q5.a)return;Q5.a=k;if(k==Q5.it.k)Q5.sc+=Math.max(1,4-Q5.c);if(Q5.n+1>=8)fin("temp",Q5.sc,24);r5()};
+window.g5n=()=>{Q5.n++;Q5.it=i5();Q5.c=1;Q5.a=null;r5()};
 function route(){const h=location.hash.slice(1)||"inicio";let v;
-if(K.includes(h))v=season(h);else if(h=="jugadores")v=plist();else if(h=="comparador")v=comp();else if(h=="records")v=rec();else if(h.startsWith("partidos"))v=part(K.includes(h.slice(9))?h.slice(9):"t1");
+if(K.includes(h))v=season(h);else if(h=="jugadores")v=plist();else if(h=="comparador")v=comp();else if(h=="records")v=rec();else if(h.startsWith("minijuegos"))v=mj(h.slice(11));else if(h.startsWith("partidos"))v=part(K.includes(h.slice(9))?h.slice(9):"t1");
 else if(h.startsWith("p-")){const n=ALL.find(x=>"p-"+slug(x)==h);v=n?prof(n):`<p class="nt">No encontré a ese jugador.</p>`}else v=home();
-$("#v").innerHTML=v;const t=h.startsWith("p-")?"jugadores":h.startsWith("partidos")?"partidos":h;
+$("#v").innerHTML=v;const t=h.startsWith("p-")?"jugadores":h.startsWith("partidos")?"partidos":h.startsWith("minijuegos")?"minijuegos":h;
 document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")=="#"+t));scrollTo(0,0)}
 addEventListener("hashchange",route);route();
 </script></body></html>
