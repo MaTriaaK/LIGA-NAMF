@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liga NAMF</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏆%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:ital,wght@1,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f7;--sf:#fff;--tx:#0e1a2b;--mu:#566780;--ln:#d3dbe8;--bl:#2457d6;--or:#d9650a;--ob:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1322;--sf:#12203a;--tx:#e8eef8;--mu:#97a7c0;--ln:#233454;--bl:#6f9bff;--or:#ff9d45;--ob:#08101f}}
+:root[data-theme="dark"]{--bg:#0a1322;--sf:#12203a;--tx:#e8eef8;--mu:#97a7c0;--ln:#233454;--bl:#6f9bff;--or:#ff9d45;--ob:#08101f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 "Barlow",system-ui,sans-serif}
+header,main{max-width:900px;margin:auto;padding:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-style:italic;font-weight:800;line-height:1.05;margin:0}
+h1{font-size:clamp(2.8rem,11vw,4.4rem)}
+.bar{height:7px;width:150px;margin-top:10px;background:linear-gradient(90deg,var(--bl) 50%,var(--or) 50%);transform:skewX(-24deg)}
+nav{display:flex;gap:8px;overflow-x:auto;max-width:900px;margin:auto;padding:0 16px 8px}
+nav a,.ch a{white-space:nowrap;padding:8px 14px;border:1px solid var(--ln);border-radius:4px;color:var(--tx);background:var(--sf);text-decoration:none;font-weight:600}
+nav a.on,.ch a.on{background:var(--bl);color:var(--ob);border-color:var(--bl)}
+h2{font-size:2.4rem;margin:8px 0}h3{font-size:1.5rem;margin:26px 0 10px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.c{display:block;background:var(--sf);border:1px solid var(--ln);border-left:5px solid var(--bl);padding:10px 12px;border-radius:4px;color:var(--tx);text-decoration:none}
+.c:nth-child(even){border-left-color:var(--or)}
+.c b{display:block;font-weight:600;color:var(--mu);font-size:.9rem}
+.c span{display:block;font:italic 800 1.5rem/1.15 "Barlow Condensed","Arial Narrow",sans-serif}
+.c small{color:var(--mu)}
+.r small{color:var(--tx);line-height:1.8}
+.ch{display:flex;gap:8px;overflow-x:auto;margin:10px 0}
+details{background:var(--sf);border:1px solid var(--ln);border-radius:4px;margin:6px 0;padding:8px 12px}
+summary{cursor:pointer;font-weight:600}summary small{font-weight:400;color:var(--mu)}
+details .w{margin-top:8px}.d{margin:6px 0;padding:8px 12px;color:var(--mu)}
+.hd{display:flex;align-items:center;gap:16px}.logo{width:clamp(96px,28vw,150px);height:auto}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}.cs label{display:block;font-weight:600;color:var(--mu)}
+input,select{font:inherit;padding:9px 10px;border:1px solid var(--ln);border-radius:4px;background:var(--sf);color:var(--tx);width:100%;box-sizing:border-box}
+.ch button{cursor:pointer;white-space:nowrap;padding:8px 14px;border:1px solid var(--ln);border-radius:4px;color:var(--tx);background:var(--sf);font:inherit;font-weight:600}.ch button.on{background:var(--bl);color:var(--ob);border-color:var(--bl)}.ch select{width:auto}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:14px 0}
+.pc{background:var(--sf);border:1px solid var(--ln);border-top:5px solid var(--bl);border-radius:4px;padding:12px;text-align:center}.pc.b{border-top-color:var(--or)}
+.av{width:60px;height:60px;border-radius:50%;margin:0 auto 6px;display:grid;place-items:center;background:var(--bl);color:var(--ob);font:italic 800 1.6rem "Barlow Condensed","Arial Narrow",sans-serif}.pc.b .av{background:var(--or)}
+.pc h3{margin:0;font-size:1.6rem}.sl{margin-top:8px}.vsx{align-self:center;font:italic 800 1.5rem "Barlow Condensed","Arial Narrow",sans-serif;color:var(--mu)}
+.cmpt td,.cmpt th,.cmpt th:first-child,.cmpt td:first-child{text-align:center}.cmpt td{font:italic 800 1.4rem "Barlow Condensed","Arial Narrow",sans-serif;width:30%}.cmpt th{font-weight:600;color:var(--mu);white-space:normal}
+.cmpt td.l{background:color-mix(in srgb,var(--bl) 25%,transparent)}.cmpt td.r{background:color-mix(in srgb,var(--or) 28%,transparent)}.cmpt em{display:block;font-size:.8rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.c ul{margin:4px 0 8px;padding-left:18px}
+.rt{color:#c62828}
+.c .nd{color:var(--mu);font-size:1.15rem}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .rt{color:#ff7a70}}
+:root[data-theme="dark"] .rt{color:#ff7a70}
+.w{overflow-x:auto;background:var(--sf);border:1px solid var(--ln);border-radius:4px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.95rem}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--ln);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th button{all:unset;cursor:pointer;font-weight:600;color:var(--mu)}
+th button:hover{color:var(--tx)}th button:focus-visible{outline:2px solid var(--bl)}
+a{color:var(--bl)}.nt{color:var(--mu);max-width:65ch}
+li{margin:4px 0}
+</style></head><body>
+<header class="hd"><img class="logo" src="logo-namf.png" alt="Liga NAMF"><div><h1 class="sr">Liga NAMF</h1><p class="nt" style="margin:0">Rocket League 2v2, temporadas 1 a 3</p><div class="bar"></div></div></header>
+<nav><a href="#inicio">Inicio</a><a href="#t1">Temporada 1</a><a href="#t2">Temporada 2</a><a href="#t3">Temporada 3</a><a href="#partidos">Partidos</a><a href="#comparador">Comparador</a><a href="#records">Récords</a><a href="#jugadores">Jugadores</a></nav>
+<main id="v"></main>
+<script>
+const R={
+t1:{"MD SPORTS":["Dimas","Markitos"],"TUSSI FC":["Emi","Gabi"],"C.D.T.":["Thiago","Lauti"],"F ON TOP":["Fede Vidal","Fran"],"GORDOS FC":["Román","Tizi"],"BOMBINI CN":["Carmine","Nico"]},
+t2:{"Team TreMbo":["Markitos","Tizi"],"Primos de Oro":["Nico","Alejo","Lauti"],"Morcilla FC":["Dimas","Román"],"Hampter Sports":["Gabi","Fede Vidal"],"Kirk’s Flame":["Palito","Bita"],"C.D.T.M.":["Thiago","Maxi"],"Habibi 9/11":["Fran","Emi"],"Los Ludópatas":["Carmine","Lauty"]},
+t3:{"BEBITA SPORTS":["Markitos","Axel"],"GORDOS FC":["Román","Dimas"],"Hacelo Nene":["Aure","Agus"],"LA NISMAN":["Thiago","Lauty"],"SAJA BOYS FC":["Palito","Nico"],"EAFB":["Emi","Bita"],"Einchenwalde Kriegers":["Fran","Gabi"],"AQUÍ NO":["Carmine","Fede Vidal"],"APELO FC":["Benja","Alejo"]}};
+const D={
+t1:{n:"Temporada 1",s:"T1",note:"Los PJ se calculan con los partidos de cada equipo (se cuentan los dos jugadores de cada dupla).",
+ch:{Liga:"C.D.T.",Copa:"C.D.T.",Supercopa:"F ON TOP"},fin:{Copa:"Final: C.D.T. 10-9 BOMBINI CN (OT)",Supercopa:"Final: F ON TOP 9-8 C.D.T."},
+aw:[["Balón de Oro","Román"],["Bota de Oro","Thiago"],["Guante de Oro","Román"],["Puskás","Markitos"],["Jugador revelación","Dimas"],["Jugador decepción","Markitos"]],
+te:[["Mejor equipo","C.D.T."],["Equipo revelación","GORDOS FC"],["Peor equipo","TUSSI FC"],["Equipo decepción","TUSSI FC"]],
+tb:[["C.D.T.",5,4,1,35,18,12],["F ON TOP",5,4,1,31,23,12],["BOMBINI CN",5,4,1,27,25,12],["GORDOS FC",5,1,4,22,28,3],["MD SPORTS",5,1,4,24,30,3],["TUSSI FC",5,1,4,18,33,3]],
+st:[["Thiago",9,42,19,13,10,96,4,2],["Román",7,32,0,28,17,71,6,4],["Fede Vidal",8,26,9,11,14,55,2,1],["Lauti",9,26,12,7,5,58,0,2],["Carmine",8,28,8,16,23,64,3,3],["Nico",8,21,14,8,2,45,1,2],["Markitos",5,20,3,16,19,55,4,4],["Fran",8,18,7,9,7,43,1,2],["Emi",5,12,4,8,5,31,0,1],["Gabi",5,6,5,11,5,31,0,0],["Dimas",5,4,2,2,1,6,0,0],["Tizi",7,0,2,0,1,4,0,0]]},
+t2:{n:"Temporada 2",s:"T2",note:"Dos partidos de Copa (Habibi 9/11 3-7 Los Ludópatas y Hampter Sports 4-3 Primos de Oro) no tienen repetición, así que faltan sus estadísticas individuales. Lauti arrancó en Primos de Oro (4 partidos), se fue y entró Alejo.",
+ch:{Liga:"Team TreMbo",Copa:"Hampter Sports",Supercopa:"Team TreMbo"},fin:{Copa:"Final: Hampter Sports 11-9 C.D.T.M.",Supercopa:"Final: Team TreMbo 9-7 Hampter Sports"},
+aw:[["Balón de Oro","Markitos"],["Bota de Oro","Markitos"],["Guante de Oro","Carmine"],["Puskás","Markitos"],["Jugador revelación","Maxi"],["Jugador decepción","Fran"]],
+te:[["Mejor equipo","Team TreMbo"],["Equipo revelación","Team TreMbo"],["Peor equipo","Primos de Oro"],["Equipo decepción","Primos de Oro"]],
+tb:[["Team TreMbo",7,6,1,63,28,18],["Kirk’s Flame",7,6,1,48,31,18],["Habibi 9/11",7,5,2,38,33,15],["Morcilla FC",7,4,3,40,47,12],["Hampter Sports",7,3,4,45,37,9],["Los Ludópatas",7,2,5,31,40,6],["C.D.T.M.",7,1,6,36,59,3],["Primos de Oro",7,1,6,23,49,2]],
+st:[["Markitos",9,75,3,23,16,125,9,8],["Thiago",10,46,8,11,7,98,4,3],["Román",8,40,2,23,17,87,6,3],["Gabi",10,37,18,23,10,79,0,1],["Palito",8,35,12,7,8,74,4,0],["Fede Vidal",10,33,11,15,13,80,2,1],["Carmine",8,28,2,23,19,62,4,4],["Emi",7,27,8,11,4,48,3,6],["Bita",8,18,8,8,8,41,0,4],["Nico",8,16,5,9,5,35,0,1],["Fran",7,11,10,8,5,31,1,0],["Maxi",10,10,11,14,6,20,0,1],["Lauti",4,8,3,4,5,17,1,1],["Lauty",8,6,10,2,2,23,0,0],["Dimas",8,5,9,5,1,16,0,0],["Tizi",9,4,10,0,0,8,0,0],["Alejo",4,7,6,8,4,22,0,1]]},
+t3:{n:"Temporada 3",s:"T3",note:"Temporada incompleta: se jugaron 16 de 36 partidos de la Liga y se canceló. APELO FC es campeón por decreto y tiene 1 punto menos por una infracción (Alejo entró a un partido ajeno). No hubo Copa ni Supercopa. APELO 6-5 (OT) Einchenwalde Kriegers no tuvo repetición, así que sus estadísticas individuales son aproximadas. Aure entró en lugar de Alesi, que se bajó antes de jugar.",
+ch:{Liga:"APELO FC"},fin:{Liga:"Campeón por decreto"},
+aw:[["Balón de Oro","Markitos"],["Bota de Oro","Román"],["Guante de Oro","Markitos"],["Puskás","Dimas"],["Jugador revelación","Axel"],["Jugador decepción","Bita"]],
+te:[["Mejor equipo","APELO FC"],["Equipo decepción","EAFB"]],
+tb:[["APELO FC",5,5,0,41,22,14],["BEBITA SPORTS",6,4,2,42,31,12],["GORDOS FC",6,3,3,37,42,9],["SAJA BOYS FC",5,2,3,22,28,6],["Einchenwalde Kriegers",3,1,2,16,17,3],["LA NISMAN",4,1,3,19,28,3],["AQUÍ NO",1,0,1,5,6,0],["Hacelo Nene",1,0,1,5,9,0],["EAFB",1,0,1,2,6,0]],
+st:[["Román",6,29,5,14,7,65,4,3],["Markitos",6,26,7,16,16,53,5,5],["Alejo",5,22,11,9,8,43,1,1],["Benja",5,19,10,7,6,50,2,0],["Palito",5,17,2,6,6,45,2,1],["Axel",6,16,5,5,2,27,0,1],["Thiago",4,15,3,7,8,35,1,1],["Gabi",3,9,3,9,7,25,1,1],["Dimas",6,8,9,4,1,16,0,1],["Fran",3,7,1,9,5,16,0,0],["Nico",5,5,4,8,2,13,0,0],["Lauty",4,4,6,4,2,10,0,1],["Carmine",1,4,1,2,0,7,0,0],["Aure",1,3,1,1,1,4,0,0],["Agus",1,2,0,1,1,4,0,0],["Emi",1,2,0,0,0,3,0,0],["Fede Vidal",1,1,3,2,1,7,0,0],["Bita",1,0,0,0,0,4,0,0]]}};
+const M={
+t1:[["Fecha 1",["MD SPORTS 10-1 TUSSI FC (MVP Markitos, jugada Markitos)","C.D.T. 8-5 F ON TOP (MVP Thiago, jugada Lauti)","GORDOS FC 1-3 BOMBINI CN (MVP Román, jugada Carmine)"]],["Fecha 2",["MD SPORTS 5-7 F ON TOP (MVP Markitos, jugada Markitos)","TUSSI FC 6-7 BOMBINI CN (MVP Carmine, jugada Carmine)","C.D.T. 9-3 GORDOS FC (MVP Thiago, jugada Thiago)"]],["Fecha 3",["MD SPORTS 2-6 BOMBINI CN (MVP Markitos, jugada Nico)","F ON TOP 4-3 (OT) GORDOS FC (MVP Román, jugada Román)","TUSSI FC 1-6 C.D.T. (MVP Thiago, jugada Lauti)"]],["Fecha 4",["MD SPORTS 5-9 GORDOS FC (MVP Román, jugada Markitos)","BOMBINI CN 7-5 C.D.T. (MVP Carmine, jugada Nico)","F ON TOP 4-3 TUSSI FC (MVP Fede Vidal, jugada Emi)"]],["Fecha 5",["MD SPORTS 2-7 C.D.T. (MVP Markitos, jugada Markitos)","GORDOS FC 6-7 TUSSI FC (MVP Román, jugada Román)","BOMBINI CN 4-11 F ON TOP (MVP Fran, jugada Fran)"]],["Copa, semis de ida",["C.D.T. 9-5 GORDOS FC (MVP Román, jugada Román)","F ON TOP 1-7 BOMBINI CN (MVP Carmine, jugada Carmine)"]],["Copa, semis de vuelta",["GORDOS FC 5-6 C.D.T. (MVP Román, jugada Román)","BOMBINI CN 6-3 F ON TOP (MVP Nico, jugada Fede Vidal)"]],["Copa, final",["BOMBINI CN 9-10 (OT) C.D.T. (MVP Thiago, jugada Thiago)"]],["Supercopa",["F ON TOP 9-8 C.D.T. (MVP Fede Vidal, jugada Fran)"]]],
+t2:[["Fecha 1",["Team TreMbo 8-0 Habibi 9/11 (abandono)","Morcilla FC 6-2 Primos de Oro (abandono)","C.D.T.M. 6-10 Hampter Sports","Los Ludópatas 5-7 Kirk’s Flame"]],["Fecha 2",["Team TreMbo 11-4 Primos de Oro (abandono)","Habibi 9/11 6-3 Hampter Sports","Morcilla FC 9-7 Kirk’s Flame","C.D.T.M. 5-7 Los Ludópatas"]],["Fecha 3",["Team TreMbo 6-5 Hampter Sports","Primos de Oro 2-6 Kirk’s Flame","Habibi 9/11 6-3 Los Ludópatas","Morcilla FC 7-4 C.D.T.M."]],["Fecha 4",["Team TreMbo 4-5 (OT) Kirk’s Flame","Hampter Sports 4-5 (OT) Los Ludópatas","Primos de Oro 6-8 C.D.T.M.","Habibi 9/11 5-4 Morcilla FC"]],["Fecha 5",["Team TreMbo 9-4 Los Ludópatas","Kirk’s Flame 9-2 C.D.T.M.","Hampter Sports 10-4 Morcilla FC","Primos de Oro 2-7 Habibi 9/11"]],["Fecha 6",["Team TreMbo 10-5 C.D.T.M.","Los Ludópatas 4-5 Morcilla FC","Kirk’s Flame 7-4 Habibi 9/11","Hampter Sports 8-3 Primos de Oro"]],["Fecha 7",["Team TreMbo 15-5 Morcilla FC","C.D.T.M. 6-10 Habibi 9/11","Los Ludópatas 3-4 Primos de Oro","Kirk’s Flame 7-5 Hampter Sports"]],["Copa, cuartos",["Team TreMbo 7-8 Primos de Oro","Morcilla FC 5-7 Hampter Sports","Kirk’s Flame 5-6 C.D.T.M.","Habibi 9/11 3-7 Los Ludópatas"]],["Copa, semis",["Hampter Sports 4-3 Primos de Oro","C.D.T.M. 5-3 Los Ludópatas"]],["Copa, final",["C.D.T.M. 9-11 Hampter Sports"]],["Supercopa",["Team TreMbo 9-7 Hampter Sports"]]],
+t3:[["Fecha 1",["GORDOS FC 4-8 APELO FC (MVP Román, jugada Román)"]],["Fecha 2",["BEBITA SPORTS 7-8 APELO FC (MVP Markitos, jugada Markitos)","GORDOS FC 7-4 Einchenwalde Kriegers (MVP Román, jugada Dimas)","LA NISMAN 3-8 SAJA BOYS FC (MVP Palito, jugada Palito)"]],["Fecha 3",["BEBITA SPORTS 6-5 AQUÍ NO (MVP Markitos, jugada Markitos)","APELO FC 6-5 (OT) Einchenwalde Kriegers (MVP Benja)","GORDOS FC 4-7 SAJA BOYS FC (MVP Palito, jugada Román)"]],["Fecha 4",["APELO FC 8-2 SAJA BOYS FC (MVP Benja, jugada Alejo)","GORDOS FC 9-5 Hacelo Nene (MVP Román, jugada Román)"]],["Fecha 5",["BEBITA SPORTS 6-2 EAFB (abandonado con 2:52 restantes; MVP Markitos, jugada Axel)","Einchenwalde Kriegers 7-4 SAJA BOYS FC (MVP Gabi, jugada Gabi)"]],["Fecha 6",["BEBITA SPORTS 6-1 SAJA BOYS FC (MVP Markitos, jugada Markitos)"]],["Fecha 7",["BEBITA SPORTS 3-8 LA NISMAN (MVP Thiago, jugada Markitos)"]],["Fecha 8",["LA NISMAN 4-6 GORDOS FC (MVP Román, jugada Lauty)"]],["Fecha 9",["BEBITA SPORTS 14-7 GORDOS FC (MVP Markitos, jugada Markitos)","LA NISMAN 4-11 APELO FC (MVP Alejo, jugada Thiago)"]]]};
+const P={
+t1:["Fecha 1|MD SPORTS 10-1 TUSSI FC|Markitos|Markitos|Dimas 3 0 1 0 4,Emi 1 0 1 2 5,Gabi 0 0 1 2 7,Markitos 7 3 3 4 14","Fecha 1|C.D.T. 8-5 F ON TOP|Thiago|Lauti|Fran 1 2 2 0 5,Lauti 3 2 1 0 5,Fede Vidal 4 0 1 4 6,Thiago 5 2 2 1 12","Fecha 1|GORDOS FC 1-3 BOMBINI CN|Román|Carmine|Nico 1 0 1 0 6,Carmine 2 1 2 4 8,Román 1 0 7 3 8,Tizi 0 0 0 0 0","Fecha 2|MD SPORTS 5-7 F ON TOP|Markitos|Markitos|Fede Vidal 2 2 1 0 7,Fran 5 0 0 2 9,Markitos 5 0 5 3 10","Fecha 2|TUSSI FC 6-7 BOMBINI CN|Carmine|Carmine|Gabi 2 2 3 1 5,Carmine 3 3 2 5 10,Nico 4 1 0 0 7,Emi 4 2 2 0 9","Fecha 2|C.D.T. 9-3 GORDOS FC|Thiago|Thiago|Lauti 3 1 2 1 8,Román 3 0 2 3 10,Thiago 6 2 2 1 11","Fecha 3|MD SPORTS 2-6 BOMBINI CN|Markitos|Nico|Dimas 0 1 1 0 1,Nico 1 1 1 2 5,Carmine 5 0 4 4 9,Markitos 2 0 1 2 13","Fecha 3|F ON TOP 4-3 (OT) GORDOS FC|Román|Román|Fran 1 0 2 0 3,Fede Vidal 3 1 0 2 7,Román 3 0 4 1 7,Tizi 0 0 0 0 0","Fecha 3|TUSSI FC 1-6 C.D.T.|Thiago|Lauti|Gabi 1 0 4 1 4,Emi 0 1 1 0 4,Lauti 2 1 0 1 5,Thiago 4 1 3 2 9","Fecha 4|MD SPORTS 5-9 GORDOS FC|Román|Markitos|Dimas 1 1 0 0 1,Tizi 0 0 0 0 2,Markitos 4 0 1 8 10,Román 9 0 2 3 16","Fecha 4|BOMBINI CN 7-5 C.D.T.|Carmine|Nico|Lauti 0 1 0 1 3,Nico 4 1 1 0 6,Carmine 3 2 1 5 7,Thiago 5 0 1 0 10","Fecha 4|F ON TOP 4-3 TUSSI FC|Fede Vidal|Emi|Fran 2 0 1 0 4,Emi 2 0 1 2 6,Fede Vidal 2 1 4 3 6,Gabi 1 1 0 0 7","Fecha 5|MD SPORTS 2-7 C.D.T.|Markitos|Markitos|Thiago 1 5 2 0 8,Markitos 2 0 6 2 8,Lauti 6 0 0 1 11,Dimas 0 0 0 1 0","Fecha 5|GORDOS FC 6-7 TUSSI FC|Román|Román|Tizi 0 1 0 0 1,Emi 5 1 3 1 7,Gabi 2 2 3 1 8,Román 6 0 3 2 12","Fecha 5|BOMBINI CN 4-11 F ON TOP|Fran|Fran|Carmine 2 1 1 1 3,Nico 2 2 2 0 7,Fede Vidal 4 4 2 0 7,Fran 7 0 1 0 10","Copa, semis de ida|C.D.T. 9-5 GORDOS FC|Román|Román|Tizi 0 1 0 1 1,Lauti 4 1 1 0 8,Román 5 0 6 2 8,Thiago 5 4 0 1 11","Copa, semis de ida|F ON TOP 1-7 BOMBINI CN|Carmine|Carmine|Fran 0 0 2 1 3,Nico 2 3 1 0 4,Fede Vidal 1 0 2 2 5,Carmine 5 0 1 1 11","Copa, semis de vuelta|GORDOS FC 5-6 C.D.T.|Román|Román|Lauti 1 2 1 1 6,Román 5 0 4 3 10,Thiago 5 1 1 0 13","Copa, semis de vuelta|BOMBINI CN 6-3 F ON TOP|Nico|Fede Vidal|Fran 0 2 0 2 3,Carmine 3 0 4 0 5,Nico 3 3 1 0 5,Fede Vidal 3 0 0 1 7","Copa, final|BOMBINI CN 9-10 (OT) C.D.T.|Thiago|Thiago|Nico 4 3 1 0 5,Lauti 3 3 1 0 6,Carmine 5 1 1 3 11,Thiago 7 2 2 2 12","Supercopa|F ON TOP 9-8 C.D.T.|Fede Vidal|Fran|Lauti 4 1 1 0 6,Fran 2 3 1 2 6,Thiago 4 2 0 3 10,Fede Vidal 7 1 1 2 10"],
+t2:["Fecha 1|Team TreMbo 8-0 Habibi 9/11 (abandono 2:04)|Markitos|Markitos|Markitos 7 1 2 2 10,Tizi 1 0 0 0 1,Emi 0 0 1 0 4,Fran 0 0 0 0 3","Fecha 1|Morcilla FC 6-2 Primos de Oro (abandono 4:05)|Román|Román|Román 4 0 1 1 5,Dimas 2 0 0 0 4,Lauti 2 0 1 0 3,Nico 0 2 1 0 4","Fecha 1|C.D.T.M. 6-10 Hampter Sports|Thiago|Maxi|Thiago 5 1 2 0 13,Maxi 1 4 0 1 4,Gabi 5 4 2 0 5,Fede Vidal 5 2 1 1 9","Fecha 1|Los Ludópatas 5-7 Kirk’s Flame|Carmine|Bita|Carmine 4 1 4 3 7,Lauty 1 0 0 0 5,Palito 6 1 1 2 15,Bita 1 3 2 2 5","Fecha 2|Team TreMbo 11-4 Primos de Oro (abandono)|Markitos|Markitos|Markitos 10 1 0 1 13,Tizi 1 2 0 0 1,Nico 2 1 1 0 4,Lauti 2 0 2 0 3","Fecha 2|Habibi 9/11 6-3 Hampter Sports|Emi|Emi|Emi 4 1 2 3 7,Fran 2 3 1 0 6,Fede Vidal 1 2 2 1 5,Gabi 2 0 1 1 5","Fecha 2|Morcilla FC 9-7 Kirk’s Flame|Román|Román|Román 9 0 2 1 15,Dimas 0 3 1 0 1,Palito 2 5 0 1 8,Bita 5 1 2 0 8","Fecha 2|C.D.T.M. 5-7 Los Ludópatas|Carmine|Carmine|Thiago 4 1 1 0 8,Maxi 1 1 1 0 2,Carmine 5 1 2 2 7,Lauty 2 1 1 0 4","Fecha 3|Team TreMbo 6-5 Hampter Sports|Markitos|Markitos|Markitos 5 1 3 3 12,Tizi 1 2 0 0 1,Gabi 4 0 1 2 8,Fede Vidal 1 0 1 2 6","Fecha 3|Primos de Oro 2-6 Kirk’s Flame|Palito|Bita|Alejo 1 1 1 1 4,Nico 1 0 0 1 3,Palito 4 1 1 1 7,Bita 2 1 0 1 4","Fecha 3|Habibi 9/11 6-3 Los Ludópatas|Emi|Emi|Emi 5 0 2 1 9,Fran 1 1 1 1 2,Carmine 3 0 1 1 10,Lauty 0 1 0 1 1","Fecha 3|Morcilla FC 7-4 C.D.T.M.|Román|Thiago|Román 6 1 2 1 12,Dimas 1 1 1 0 1,Thiago 3 1 2 1 8,Maxi 1 0 1 0 2","Fecha 4|Team TreMbo 4-5 (OT) Kirk’s Flame|Markitos|Markitos|Markitos 4 0 5 2 6,Tizi 0 0 0 0 1,Palito 4 1 0 0 8,Bita 1 0 1 1 7","Fecha 4|Hampter Sports 4-5 (OT) Los Ludópatas|Carmine|Gabi|Gabi 3 0 4 1 11,Fede Vidal 1 1 1 0 7,Carmine 5 0 4 4 8,Lauty 0 2 0 0 4","Fecha 4|Primos de Oro 6-8 C.D.T.M.|Lauti|Lauti|Lauti 4 2 0 3 5,Nico 2 1 0 0 3,Thiago 6 1 0 0 13,Maxi 2 1 1 0 2","Fecha 4|Habibi 9/11 5-4 Morcilla FC|Román|Emi|Román 4 0 2 2 8,Dimas 0 1 0 0 0,Emi 5 0 0 0 6,Fran 0 4 2 0 5","Fecha 5|Team TreMbo 9-4 Los Ludópatas|Markitos|Carmine|Markitos 9 0 4 1 18,Tizi 0 3 0 0 2,Carmine 3 0 4 4 7,Lauty 1 1 0 0 3","Fecha 5|Kirk’s Flame 9-2 C.D.T.M.|Palito|Bita|Palito 6 1 1 1 10,Bita 3 1 2 1 5,Thiago 1 1 1 0 6,Maxi 1 0 1 0 2","Fecha 5|Hampter Sports 10-4 Morcilla FC|Román|Román|Gabi 6 3 2 0 14,Fede Vidal 4 0 2 1 11,Román 4 0 7 4 11,Dimas 0 1 0 1 1","Fecha 5|Primos de Oro 2-7 Habibi 9/11|Fran|Emi|Alejo 1 0 2 1 5,Nico 1 0 2 0 5,Emi 3 3 2 0 8,Fran 4 2 0 3 6","Fecha 6|Team TreMbo 10-5 C.D.T.M.|Markitos|Markitos|Markitos 10 0 1 0 16,Tizi 0 1 0 0 0,Thiago 4 1 1 2 6,Maxi 1 0 1 0 2","Fecha 6|Los Ludópatas 4-5 Morcilla FC|Román|Carmine|Carmine 3 0 3 1 8,Lauty 1 2 0 0 2,Román 5 0 0 2 9,Dimas 0 1 1 0 2","Fecha 6|Kirk’s Flame 7-4 Habibi 9/11|Palito|Emi|Palito 3 2 1 2 8,Bita 4 0 0 0 4,Emi 3 1 2 0 5,Fran 1 0 2 0 5","Fecha 6|Hampter Sports 8-3 Primos de Oro|Fede Vidal|Nico|Fede Vidal 5 1 2 1 13,Gabi 3 3 4 1 7,Nico 3 0 3 2 6,Lauti 0 1 1 2 6","Fecha 7|Team TreMbo 15-5 Morcilla FC|Markitos|Markitos|Markitos 14 0 4 5 21,Tizi 1 2 0 0 1,Román 5 0 5 3 16,Dimas 0 1 0 0 3","Fecha 7|C.D.T.M. 6-10 Habibi 9/11|Emi|Emi|Thiago 5 1 0 0 8,Maxi 1 1 2 0 1,Emi 7 3 2 0 9,Fran 3 0 2 1 4","Fecha 7|Los Ludópatas 3-4 Primos de Oro|Carmine|Alejo|Carmine 3 0 3 2 6,Lauty 0 2 1 0 0,Alejo 2 0 2 0 7,Nico 2 0 1 1 5","Fecha 7|Kirk’s Flame 7-5 Hampter Sports|Palito|Bita|Fede Vidal 2 1 3 1 5,Gabi 3 2 1 0 5,Palito 6 0 1 0 11,Bita 1 0 0 1 2","Copa, cuartos|Team TreMbo 7-8 Primos de Oro|Markitos|Markitos|Markitos 7 0 1 1 15,Tizi 0 0 0 0 0,Alejo 3 5 3 2 6,Nico 5 1 1 1 5","Copa, cuartos|Morcilla FC 5-7 Hampter Sports|Fede Vidal|Fede Vidal|Román 3 1 4 3 11,Dimas 2 1 2 0 4,Fede Vidal 7 0 1 2 9,Gabi 0 3 4 3 6","Copa, cuartos|Kirk’s Flame 5-6 C.D.T.M.|Thiago|Thiago|Palito 4 1 2 1 7,Bita 1 2 1 2 6,Thiago 5 0 2 1 10,Maxi 1 2 2 1 3","Copa, cuartos|Habibi 9/11 3-7 Los Ludópatas|||","Copa, semis|Hampter Sports 4-3 Primos de Oro|||","Copa, semis|C.D.T.M. 5-3 Los Ludópatas|Thiago|Carmine|Thiago 5 0 1 2 11,Maxi 0 0 3 3 1,Carmine 2 0 2 2 9,Lauty 1 1 0 1 4","Copa, final|C.D.T.M. 9-11 Hampter Sports|Thiago|Thiago|Thiago 8 1 1 1 15,Maxi 1 2 2 1 1,Fede Vidal 5 2 1 2 8,Gabi 6 1 2 0 10","Supercopa|Team TreMbo 9-7 Hampter Sports|Markitos|Markitos|Markitos 9 0 3 1 14,Tizi 0 0 0 0 1,Gabi 5 2 2 2 8,Fede Vidal 2 2 1 2 7"],
+t3:["Fecha 1|GORDOS FC 4-8 APELO FC|Román|Román|Román 4 0 3 3 9,Dimas 0 0 2 1 1,Alejo 5 2 4 1 9,Benja 3 3 1 1 10","Fecha 2|BEBITA SPORTS 7-8 APELO FC|Markitos|Markitos|Markitos 5 1 0 5 11,Axel 2 2 0 0 4,Alejo 5 2 1 2 11,Benja 3 4 1 2 7","Fecha 2|GORDOS FC 7-4 Einchenwalde Kriegers|Román|Dimas|Román 4 1 4 1 7,Dimas 3 2 0 0 7,Gabi 2 1 2 4 8,Fran 2 1 2 1 2","Fecha 2|LA NISMAN 3-8 SAJA BOYS FC|Palito|Palito|Thiago 3 0 4 1 6,Lauty 0 1 0 1 3,Palito 7 0 1 1 14,Nico 1 0 2 2 2","Fecha 3|BEBITA SPORTS 6-5 AQUÍ NO|Markitos|Markitos|Markitos 4 2 3 2 8,Axel 2 0 2 1 7,Carmine 4 1 2 0 7,Fede Vidal 1 3 2 1 7","Fecha 3|APELO FC 6-5 (OT) Einchenwalde Kriegers|Benja||Benja 5 0 2 1 17,Alejo 1 2 2 2 7,Fran 2 0 6 4 7,Gabi 3 1 6 1 9","Fecha 3|GORDOS FC 4-7 SAJA BOYS FC|Palito|Román|Román 2 2 2 1 10,Dimas 2 1 0 0 2,Palito 6 1 2 2 9,Nico 1 2 1 0 3","Fecha 4|APELO FC 8-2 SAJA BOYS FC|Benja|Alejo|Benja 5 1 1 2 8,Alejo 3 3 1 3 5,Palito 2 0 0 1 7,Nico 0 1 1 0 3","Fecha 4|GORDOS FC 9-5 Hacelo Nene|Román|Román|Román 8 1 1 0 12,Dimas 1 3 1 0 3,Aure 3 1 1 1 4,Agus 2 0 1 1 4","Fecha 5|BEBITA SPORTS 6-2 EAFB (abandonado con 2:52 restantes)|Markitos|Axel|Markitos 3 0 1 1 4,Axel 3 0 1 0 3,Bita 0 0 0 0 4,Emi 2 0 0 0 3","Fecha 5|Einchenwalde Kriegers 7-4 SAJA BOYS FC|Gabi|Gabi|Gabi 4 1 1 2 8,Fran 3 0 1 0 7,Nico 3 1 2 0 4,Palito 1 1 1 0 8","Fecha 6|BEBITA SPORTS 6-1 SAJA BOYS FC|Markitos|Markitos|Markitos 3 2 2 0 9,Axel 3 0 1 0 6,Palito 1 0 2 2 7,Nico 0 0 2 0 1","Fecha 7|BEBITA SPORTS 3-8 LA NISMAN|Thiago|Markitos|Markitos 3 0 3 3 8,Axel 0 1 1 1 2,Thiago 5 3 0 3 14,Lauty 3 2 1 1 5","Fecha 8|LA NISMAN 4-6 GORDOS FC|Román|Lauty|Thiago 3 0 2 2 8,Lauty 1 1 1 0 1,Román 5 0 2 1 10,Dimas 1 2 0 0 2","Fecha 9|BEBITA SPORTS 14-7 GORDOS FC|Markitos|Markitos|Markitos 8 2 7 5 13,Axel 6 2 0 0 5,Román 6 1 2 1 17,Dimas 1 1 1 0 1","Fecha 9|LA NISMAN 4-11 APELO FC|Alejo|Thiago|Thiago 4 0 1 2 7,Lauty 0 2 2 0 1,Alejo 8 2 1 0 11,Benja 3 2 2 0 8"]};
+const RT=["Aure","Benja","Carmine","Emi","Maxi","Lauti"];
+const V={t1:"puskas-t1.mp4",t2:"puskas-t2.mp4",t3:"puskas-t3.mp4"},VT={t1:"MD SPORTS vs TUSSI FC, fecha 1",t2:"Team TreMbo vs Primos de Oro, fecha 2 de la Liga",t3:"GORDOS FC vs Einchenwalde Kriegers, fecha 2"};
+const K=["t1","t2","t3"],H=["PJ","Goles","Asist.","Salv.","Épicas","Tiros","MVP","Jugadas"],srt={};
+const $=s=>document.querySelector(s),slug=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-"),
+L=n=>`<a href="#p-${slug(n)}">${n}</a>`,
+ALL=[...new Set(K.flatMap(k=>D[k].st.map(r=>r[0])))].sort((a,b)=>a.localeCompare(b,"es")),
+tm=(k,n)=>Object.keys(R[k]).find(t=>R[k][t].includes(n))||"",
+tbl=(h,r)=>`<div class="w"><table><thead><tr>${h.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>${r.map(x=>`<tr>${x.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+function stTbl(k){const i=srt[k]??2,r=[...D[k].st].sort((a,b)=>(b[i]??-1)-(a[i]??-1));
+return tbl(["Jugador",...H.map((h,j)=>`<button onclick="so('${k}',${j+1})">${h}</button>`)],r.map(x=>[L(x[0]),...x.slice(1).map(v=>v??"-")]))}
+window.so=(k,i)=>{srt[k]=i;$("#st").innerHTML=stTbl(k)};
+const home=()=>`<p class="nt">Estadísticas, campeones y premios de la liga de Rocket League 2v2, de la temporada 1 a la 3.</p><div class="g">${K.map(k=>{const d=D[k];return `<a class="c" href="#${k}"><b>${d.n}</b><span>${d.ch.Liga}</span><small>Campeón de Liga${d.fin.Liga?" por decreto":""}</small></a>`}).join("")}</div>`;
+function season(k){const d=D[k];
+return `<h2>${d.n}</h2><p class="nt">${d.note}</p>
+<h3>Campeones</h3><div class="g">${Object.entries(d.ch).map(([c,t])=>`<div class="c"><b>${c}</b><span>${t}</span><small>${R[k][t].map(L).join(", ")}${d.fin[c]?`<br>${d.fin[c]}`:""}</small></div>`).join("")}</div>
+<h3>Premios</h3><div class="g">${d.aw.map(([a,n])=>`<div class="c"><b>${a}</b><span>${L(n)}</span></div>`).join("")}${d.te.map(([a,t])=>`<div class="c"><b>${a}</b><span>${t}</span></div>`).join("")}</div>
+${V[k]?`<h3>Video del Puskás</h3><video controls playsinline preload="metadata" src="${V[k]}" style="width:100%;max-width:640px;border-radius:4px"></video><p class="nt">Gol de ${d.aw[3][1]} en ${VT[k]}</p>`:""}<h3>Tabla de la Liga</h3>${tbl(["Equipo","PJ","G","P","GF","GE","DG","Pts"],d.tb.map(x=>[x[0],x[1],x[2],x[3],x[4],x[5],x[4]-x[5],x[6]]))}
+<h3>Resultados</h3><div class="g">${M[k].map(([r,x])=>`<div class="c r"><b>${r}</b><small>${x.join("<br>")}</small></div>`).join("")}</div>
+<h3>Equipos</h3><div class="g">${Object.entries(R[k]).map(([t,p])=>`<div class="c"><b>${t}</b><small>${p.map(L).join(", ")}</small></div>`).join("")}</div>
+<h3>Estadísticas por jugador</h3><div id="st">${stTbl(k)}</div>`}
+const plist=()=>`<h2>Jugadores</h2><div class="g">${ALL.map(n=>`<a class="c" href="#p-${slug(n)}"><span>${n}</span><small>${K.filter(k=>D[k].st.some(r=>r[0]==n)).map(k=>D[k].s).join(", ")}${RT.includes(n)?` <b class="rt">(Retirado)</b>`:""}</small></a>`).join("")}</div>`;
+function prof(n){const tot=Array(8).fill(0),rows=[],col=[],ind=[],dec=[];let nul=0;
+K.forEach(k=>{const x=D[k].st.find(r=>r[0]==n);if(!x)return;
+rows.push([D[k].s,tm(k,n),...x.slice(1).map(v=>v??"-")]);x.slice(1).forEach((v,i)=>tot[i]+=v||0);if(x[1]==null)nul=1;
+Object.entries(D[k].ch).forEach(([c,t])=>R[k][t].includes(n)&&col.push(`${D[k].s} ${c} (${t})`));
+D[k].aw.forEach(([a,m])=>m==n&&(/decepción/.test(a)?dec:ind).push(`${a} ${D[k].s}`))});
+const f=a=>a.length?`<ul>${a.map(x=>`<li>${x}</li>`).join("")}</ul>`:`<p class="nt">Ninguno todavía.</p>`;
+return `<h2>${n}</h2><h3>Por temporada</h3>${tbl(["Temporada","Equipo",...H],[...rows,["Total","",...tot]])}${nul?`<p class="nt">Los partidos jugados de la T1 no están registrados, así que el total de PJ cuenta solo la T2 y la T3.</p>`:""}<h3>Títulos de equipo</h3>${f(col)}<h3>Premios individuales</h3>${f(ind)}${dec.length?`<h3>Decepciones</h3>${f(dec)}`:""}`}
+function part(k){let last="",h=`<h2>Partidos</h2><div class="ch">${K.map(x=>`<a href="#partidos-${x}"${x==k?' class="on"':""}>${D[x].n}</a>`).join("")}</div><p class="nt">Tocá un partido para ver las estadísticas de cada jugador.</p>`;
+P[k].forEach(s=>{const[r,m,mv,jp,pl]=s.split("|");if(r!=last){h+=`<h3>${r}</h3>`;last=r}
+h+=pl?`<details><summary>${m} <small>(MVP ${mv}${jp?`, jugada ${jp}`:""})</small></summary>${tbl(["Jugador","Goles","Asist.","Salv.","Épicas","Tiros"],pl.split(",").map(p=>{const a=p.split(" ");return[L(a.slice(0,-5).join(" ")),...a.slice(-5)]}))}</details>`:`<p class="d">${m} (sin repetición, no hay estadísticas)</p>`});
+return h}
+const C={a:"Markitos",b:"Román",m:"c",sa:"t3",sb:"t3"},
+pd=(n,ks)=>{const t=Array(8).fill(0),col=[],ind=[],ss=[];
+ks.forEach(k=>{const x=D[k].st.find(r=>r[0]==n);if(!x)return;ss.push(k);x.slice(1).forEach((v,i)=>t[i]+=v||0);
+Object.entries(D[k].ch).forEach(([c,m])=>R[k][m].includes(n)&&col.push(D[k].s+" "+c));
+D[k].aw.forEach(([a,m])=>m==n&&!/decepción/.test(a)&&ind.push(a+" "+D[k].s))});
+return{t,col,ind,ss}},
+RW=[["Partidos jugados",x=>x.t[0]],["Goles",x=>x.t[1]],["Asistencias",x=>x.t[2]],["MVP",x=>x.t[6]],["Tiros",x=>x.t[5]],["Salvadas",x=>x.t[3]],["Salvadas épicas",x=>x.t[4]],["Títulos colectivos",x=>x.col.length],["Premios individuales",x=>x.ind.length]],
+ini=n=>n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(),
+cu=()=>{$("#v").innerHTML=comp()};
+window.cs=(w,v)=>{const n=ALL.find(x=>slug(x)==slug(v));if(n){C[w]=n;cu()}};
+window.cm=m=>{C.m=m;cu()};
+window.cy=v=>{if(v){C.sa=C.sb=v;cu()}};
+window.cz=(w,v)=>{C[w]=v;cu()};
+function comp(){
+const ks=s=>C.m=="c"?K:[C[s]],A={n:C.a,x:pd(C.a,ks("sa"))},B={n:C.b,x:pd(C.b,ks("sb"))},ok=A.x.ss.length&&B.x.ss.length,
+opt=s=>K.map(x=>`<option value="${x}"${x==C[s]?" selected":""}>${D[x].n}</option>`).join(""),
+info=(o,s)=>!o.n?"":!o.x.ss.length?"No jugó en este período":C.m=="c"?"Temporadas: "+o.x.ss.map(k=>D[k].s).join(", "):o.x.ss.map(k=>D[k].s+": "+tm(k,o.n)).join(", "),
+card=(o,c,s)=>`<div class="pc ${c}">${o.n?`<div class="av">${ini(o.n)}</div><h3>${o.n}</h3><small>${info(o,s)}</small><br><a href="#p-${slug(o.n)}">Ver perfil</a>`:`<p class="nt">Elegí un jugador</p>`}${C.m=="t"?`<div class="sl"><select onchange="cz('${s}',this.value)">${opt(s)}</select></div>`:""}</div>`;
+let lc=0,rc=0,tc=0;
+const rows=RW.map(([l,f])=>{const a=A.x.ss.length?f(A.x):"-",b=B.x.ss.length?f(B.x):"-",lw=ok&&a>b,rw=ok&&b>a,tie=ok&&a==b;lc+=lw?1:0;rc+=rw?1:0;tc+=tie?1:0;
+return `<tr><td class="${lw?"l":""}">${a}</td><th>${l}${tie?"<em>Empate</em>":""}</th><td class="${rw?"r":""}">${b}</td></tr>`}).join(""),
+ls=o=>`<div class="c"><b>${o.n}</b><small>Títulos de equipo</small><ul>${(o.x.col.length?o.x.col:["Ninguno"]).map(t=>`<li>${t}</li>`).join("")}</ul><small>Premios individuales</small><ul>${(o.x.ind.length?o.x.ind:["Ninguno"]).map(t=>`<li>${t}</li>`).join("")}</ul></div>`;
+return `<h2>Comparador de jugadores</h2>
+<div class="cs">${[["a","Jugador 1"],["b","Jugador 2"]].map(([w,l])=>`<label>${l}<input list="pl" value="${C[w]}" placeholder="Buscar jugador" onfocus="this.select()" onchange="cs('${w}',this.value)"></label>`).join("")}</div>
+<datalist id="pl">${ALL.map(n=>`<option value="${n}">`).join("")}</datalist>
+<div class="ch"><button class="${C.m=="c"?"on":""}" onclick="cm('c')">Toda la carrera</button><button class="${C.m=="t"?"on":""}" onclick="cm('t')">Por temporada</button>${C.m=="t"?`<select onchange="cy(this.value)"><option value="">Misma temporada para ambos</option>${K.map(x=>`<option value="${x}">${D[x].n}</option>`).join("")}</select>`:""}</div>
+<div class="vs">${card(A,"a","sa")}<div class="vsx">VS</div>${card(B,"b","sb")}</div>
+${A.n&&B.n?(ok?`<p class="nt">${A.n} lidera ${lc}, ${B.n} lidera ${rc} y hay ${tc} empates.</p>`:`<p class="nt">Falta información de alguno de los dos en este período.</p>`)+`<div class="w"><table class="cmpt">${rows}</table></div><div class="g2">${ls(A)}${ls(B)}</div>`:`<p class="nt">Elegí dos jugadores para compararlos.</p>`}`}
+function rec(){const MT=/^(.+?) (\d+)-(\d+)(?: \(OT\))? (.+?)(?: \((?:abandono|abandonado)[^)]*\))?$/,INF=["t1"],
+AM=K.flatMap(k=>P[k].map(s=>{const[r,m,,,pl]=s.split("|"),x=m.match(MT);return x?{k,r,m,h:x[1],hg:+x[2],ag:+x[3],a:x[4],pl:pl?pl.split(",").map(p=>{const q=p.split(" "),v=q.slice(-5).map(Number);return{n:q.slice(0,-5).join(" "),g:v[0],a:v[1],s:v[2],e:v[3]}}):null}:null}).filter(Boolean)),
+PS=K.flatMap(k=>D[k].st.map(r=>({k,n:r[0],pj:r[1],g:r[2],a:r[3],s:r[4],e:r[5],t:r[6],mv:r[7]}))),
+TR=K.flatMap(k=>D[k].tb.map(r=>({k,t:r[0],pj:r[1],g:r[2],p:r[3],gf:r[4],ge:r[5],pt:r[6]}))),
+dm=m=>D[m.k].s+", "+m.r+": "+m.m,
+top=(a,f,mx=1)=>{if(!a.length)return null;const v=a.reduce((c,x)=>mx?Math.max(c,f(x)):Math.min(c,f(x)),mx?-1/0:1/0);return{v,h:a.filter(x=>f(x)==v)}},
+cd=(l,r,fh,why)=>`<div class="c"><b>${l}</b>${r?`<span>${r.v}</span><small>${r.h.map(fh).join("<br>")}</small>`:`<span class="nd">Sin datos</span><small>${why||""}</small>`}</div>`,
+ml=f=>AM.filter(f).flatMap(m=>(m.pl||[]).map(p=>({...p,m}))),
+cr=f=>{const o={};PS.forEach(x=>{o[x.n]=(o[x.n]||0)+f(x)});return Object.entries(o).map(([n,v])=>({n,v}))},
+cc=(l,f)=>cd(l,top(cr(f),x=>x.v),x=>`${L(x.n)} (${PS.filter(p=>p.n==x.n).map(p=>D[p.k].s+": "+f(p)).join(", ")})`),
+cs2=(l,f)=>cd(l,top(PS,f),x=>`${L(x.n)}, ${D[x.k].s}`),
+cl=(l,f,flt=()=>1)=>cd(l,top(ml(flt),f),x=>`${L(x.n)}, ${dm(x.m)}`),
+gs=(flt,f)=>{const o={};ml(flt).forEach(p=>{const q=p.m.k+"|"+p.n;(o[q]=o[q]||{k:p.m.k,n:p.n,v:0}).v+=f(p)});return Object.values(o)},
+cg=(l,flt,f)=>cd(l,top(gs(flt,f),x=>x.v),x=>`${L(x.n)}, ${D[x.k].s}`),
+fin=m=>m.r=="Copa, final"||m.r=="Supercopa",cop=m=>m.r.startsWith("Copa"),sup=m=>m.r=="Supercopa",
+SP=ALL.map(n=>{let c=0,s=null,b={v:0};AM.forEach(m=>{const on=[m.h,m.a].some(t=>(R[m.k][t]||[]).includes(n));let p;if(m.pl){p=m.pl.find(x=>x.n==n)||(INF.includes(m.k)&&on?{g:0}:null);if(!p)return}else{if(on)c=0;return}if(p.g>0){if(!c)s=m;c++;if(c>b.v)b={v:c,s,e:m}}else c=0});return{n,...b}}).filter(x=>x.v),
+TS={};
+AM.forEach(m=>[[m.h,m.hg,m.ag],[m.a,m.ag,m.hg]].forEach(([t,f,c])=>{const q=m.k+"|"+t,o=TS[q]=TS[q]||{k:m.k,t,gf:0,w:0,seq:[]};o.gf+=f;o.w+=f>c?1:0;o.seq.push(f>=c)}));
+const TL=Object.values(TS),
+tn=f=>{const o={};TL.forEach(x=>{const e=o[x.t]=o[x.t]||{t:x.t,v:0,d:[]};e.v+=f(x);e.d.push(D[x.k].s+": "+f(x))});return Object.values(o)},
+tt=cs=>{const o={};K.forEach(k=>Object.entries(D[k].ch).forEach(([c,t])=>{if(cs.includes(c)){const e=o[t]=o[t]||{t,v:0,d:[]};e.v++;e.d.push(D[k].s+(cs.length>1?" "+c:""))}}));return Object.values(o)},
+ct=(l,a)=>cd(l,top(a,x=>x.v),x=>`${x.t} (${x.d.join(", ")})`),
+ST=TL.map(x=>{let c=0,b=0;x.seq.forEach(w=>{c=w?c+1:0;b=Math.max(b,c)});return{...x,v:b}}),
+tk=x=>`${x.t}, <a href="#${x.k}">${D[x.k].s}</a>`,
+tr=(l,f)=>cd(l,top(TR,f),tk),
+mt=(l,flt,f,mx)=>cd(l,top(AM.filter(flt),f,mx),dm),
+sec=(t,a)=>`<h3>${t}</h3><div class="g">${a.join("")}</div>`,
+em=top(TR,x=>x.pj-x.g-x.p);
+return `<h2>Récords históricos</h2><p class="nt">Se calculan solos con los datos de la página, así que se actualizan cuando se suman temporadas y partidos. Si un récord está empatado, aparecen todos los que lo comparten.</p>`
++sec("Goleadores",[cc("Máximo goleador histórico",x=>x.g),cs2("Máximo goleador de una temporada",x=>x.g),cl("Máximo goleador de un partido",x=>x.g),cl("Más goles en una final",x=>x.g,fin),cg("Más goles en una edición de Copa",cop,p=>p.g),cg("Más goles en una edición de Supercopa",sup,p=>p.g),cd("Más partidos consecutivos marcando",top(SP,x=>x.v),x=>`${L(x.n)}, ${x.v} partidos<br>desde ${dm(x.s)}<br>hasta ${dm(x.e)}`)])
++sec("Asistencias",[cc("Máximo asistidor histórico",x=>x.a),cs2("Más asistencias en una temporada",x=>x.a),cl("Más asistencias en un partido",x=>x.a),cl("Más asistencias en una final",x=>x.a,fin)])
++sec("Rendimiento individual",[cc("Más MVP históricos",x=>x.mv),cs2("Más MVP en una temporada",x=>x.mv),cc("Más tiros históricos",x=>x.t),cs2("Más tiros en una temporada",x=>x.t),cc("Más salvadas históricas",x=>x.s),cc("Más salvadas épicas históricas",x=>x.e),cl("Más salvadas en un partido",x=>x.s),cl("Más salvadas épicas en un partido",x=>x.e)])
++sec("Récords colectivos",[ct("Equipo con más Ligas",tt(["Liga"])),ct("Equipo con más Copas",tt(["Copa"])),ct("Equipo con más Supercopas",tt(["Supercopa"])),ct("Equipo con más títulos totales",tt(["Liga","Copa","Supercopa"])),ct("Equipo con más victorias históricas",tn(x=>x.w)),ct("Equipo con más goles históricos",tn(x=>x.gf)),cd("Equipo con más goles en una temporada",top(TL,x=>x.gf),tk),cd("Más partidos consecutivos invicto",top(ST,x=>x.v),tk)])
++sec("Récords de partidos",[mt("Partido con más goles",()=>1,m=>m.hg+m.ag),mt("Mayor goleada",()=>1,m=>Math.abs(m.hg-m.ag)),cd("Mayor remontada",null,null,"No se registra el marcador minuto a minuto."),mt("Final con más goles",fin,m=>m.hg+m.ag),mt("Final más ajustada",fin,m=>Math.abs(m.hg-m.ag),0),cd("Mayor cantidad de goles en una prórroga",null,null,"Solo se registra qué partidos fueron a prórroga, no cuántos goles hubo en ella.")])
++sec("Récords de temporadas",[tr("Mayor cantidad de puntos",x=>x.pt),tr("Mayor diferencia de goles",x=>x.gf-x.ge),tr("Mayor cantidad de victorias",x=>x.g),tr("Mayor cantidad de goles recibidos",x=>x.ge),em&&em.v?cd("Mayor cantidad de empates",em,tk):`<div class="c"><b>Mayor cantidad de empates</b><span>0</span><small>No hubo empates en ninguna Liga</small></div>`,tr("Mayor cantidad de derrotas",x=>x.p)])
++`<p class="nt">Notas: se cuenta como final la final de Copa y la Supercopa. Los récords por partido usan solo los partidos con estadísticas (en la T2 faltan 2 partidos de Copa sin repetición, y en el partido APELO FC contra Einchenwalde Kriegers de la T3 las estadísticas son aproximadas). Las rachas de goles cruzan temporadas: en la T1 se toma que cada jugador jugó todos los partidos de su equipo, y un partido sin estadísticas corta la racha. Los equipos se cuentan por nombre y pueden tener otros integrantes en cada temporada. Las victorias, los goles y las rachas de equipo incluyen Liga, Copa y Supercopa. Los récords de temporadas usan la tabla de la Liga, y la T3 quedó incompleta.</p>`}
+function route(){const h=location.hash.slice(1)||"inicio";let v;
+if(K.includes(h))v=season(h);else if(h=="jugadores")v=plist();else if(h=="comparador")v=comp();else if(h=="records")v=rec();else if(h.startsWith("partidos"))v=part(K.includes(h.slice(9))?h.slice(9):"t1");
+else if(h.startsWith("p-")){const n=ALL.find(x=>"p-"+slug(x)==h);v=n?prof(n):`<p class="nt">No encontré a ese jugador.</p>`}else v=home();
+$("#v").innerHTML=v;const t=h.startsWith("p-")?"jugadores":h.startsWith("partidos")?"partidos":h;
+document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")=="#"+t));scrollTo(0,0)}
+addEventListener("hashchange",route);route();
+</script></body></html>
