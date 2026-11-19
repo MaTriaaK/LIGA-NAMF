@@ -198,24 +198,24 @@ return `<h2>Récords históricos</h2><p class="nt">Se calculan solos con los dat
 +sec("Récords de temporadas",[tr("Mayor cantidad de puntos",x=>x.pt),tr("Mayor diferencia de goles",x=>x.gf-x.ge),tr("Mayor cantidad de victorias",x=>x.g),tr("Mayor cantidad de goles recibidos",x=>x.ge),em&&em.v?cd("Mayor cantidad de empates",em,tk):`<div class="c"><b>Mayor cantidad de empates</b><span>0</span><small>No hubo empates en ninguna Liga</small></div>`,tr("Mayor cantidad de derrotas",x=>x.p)])
 +`<p class="nt">Notas: se cuenta como final la final de Copa y la Supercopa. Los récords por partido usan solo los partidos con estadísticas (en la T2 faltan 2 partidos de Copa sin repetición, y en el partido APELO FC contra Einchenwalde Kriegers de la T3 las estadísticas son aproximadas). Las rachas de goles cruzan temporadas: en la T1 se toma que cada jugador jugó todos los partidos de su equipo, y un partido sin estadísticas corta la racha. Los equipos se cuentan por nombre y pueden tener otros integrantes en cada temporada. Las victorias, los goles y las rachas de equipo incluyen Liga, Copa y Supercopa. Los récords de temporadas usan la tabla de la Liga, y la T3 quedó incompleta.</p>`}
 const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>[...a].sort(()=>Math.random()-.5),
-GN={quien:["🕵️","¿Quién es el jugador?","Descubrí al jugador misterioso con pistas que se van sumando."],mas:["🆚","¿Quién tiene más?","Elegí quién tiene el valor más alto y armá tu racha."],trivia:["❓","Trivia NAMF","10 preguntas sobre la historia de la liga."],pron:["🎯","Pronósticos","Pronosticá resultados antes de que empiece cada partido."],temp:["📅","¿De qué temporada es?","Adiviná a qué temporada pertenece cada dato."]},
+GN={quien:["🕵️","¿Quién es el jugador?","Descubrí al jugador misterioso con pistas que se van sumando."],mas:["🆚","¿Quién tiene más?","Elegí quién tiene el valor más alto y armá tu racha."],trivia:["❓","Trivia NAMF","10 preguntas sobre la historia de la liga."],pron:["🎯","Pronósticos","Pronosticá resultados antes de que empiece cada partido."],temp:["📅","¿De qué temporada es?","Adiviná a qué temporada pertenece cada dato."],intruso:["🧩","El intruso","Tres comparten algo y uno no. Encontrá al intruso."],crono:["⏳","La cronología","Ordená acontecimientos de la liga del más antiguo al más reciente."],rank:["📊","Ordená el ranking","Ordená jugadores de mayor a menor según una estadística."]},
 ld=()=>{try{return JSON.parse(localStorage.getItem("namf-mj")||"{}")}catch(e){return{}}},
 sv=o=>{try{localStorage.setItem("namf-mj",JSON.stringify(o))}catch(e){}},
 MM=()=>K.flatMap(k=>P[k].map(s=>{const[r,m]=s.split("|"),x=m.match(/^(.+?) (\d+)-(\d+)(?: \(OT\))? (.+?)(?: \((?:abandono|abandonado)[^)]*\))?$/);return x?{k,r,m,h:x[1],hg:+x[2],ag:+x[3],a:x[4]}:null}).filter(Boolean)),
 UP=[["Fecha 1","Team TreMbo","Nottingham Miedo"],["Fecha 1","Fortnite dame el Token","GORDOS FC"],["Fecha 1","KKKICKOFF","Te Garcho FC"],["Fecha 1","C.D.T.","Los Wachiturros"],["Fecha 2","Fortnite dame el Token","Team TreMbo"],["Fecha 2","Nottingham Miedo","Te Garcho FC"],["Fecha 3","Los Wachiturros","Fortnite dame el Token"],["Fecha 3","C.D.T.","Nottingham Miedo"],["Fecha 4","Fortnite dame el Token","KKKICKOFF"],["Fecha 4","GORDOS FC","Nottingham Miedo"],["Fecha 5","KKKICKOFF","Los Wachiturros"],["Fecha 5","Fortnite dame el Token","Nottingham Miedo"],["Fecha 6","Nottingham Miedo","Los Wachiturros"],["Fecha 6","Te Garcho FC","Fortnite dame el Token"],["Fecha 7","Nottingham Miedo","KKKICKOFF"],["Fecha 7","C.D.T.","Fortnite dame el Token"],["Fecha 7","Los Wachiturros","Te Garcho FC"]].map(([r,h,a])=>({id:"t4-"+slug(h)+"-"+slug(a),k:"t4",r,h,a})),
 bk=`<a class="bk" href="#minijuegos">← Minijuegos</a>`,
-fin=(g,sc,mx,ex)=>{const o=ld(),n=o.n||"Jugador";o.h=[{g,sc,mx,ex,t:Date.now(),n},...(o.h||[])].slice(0,40);o.b=o.b||{};const k=n+"|"+g;if(sc>(o.b[k]||0))o.b[k]=sc;if(g=="mas"){o.s=o.s||{};if(ex>(o.s[n]||0))o.s[n]=ex}sv(o)},
+fin=(g,sc,mx,ex)=>{const o=ld(),n=o.n||"Jugador";o.h=[{g,sc,mx,ex,t:Date.now(),n},...(o.h||[])].slice(0,40);o.b=o.b||{};const k=n+"|"+g;if(sc>(o.b[k]||0))o.b[k]=sc;o.z=o.z||{};const z=o.z[k]=o.z[k]||{n:0,s:0,m:0};z.n++;z.s+=sc;z.m+=mx||0;if(g=="mas"){o.s=o.s||{};if(ex>(o.s[n]||0))o.s[n]=ex}sv(o)},
 ppts=(o,n)=>{let t=0;Object.entries(o.p||{}).forEach(([key,v])=>{if(!key.startsWith(n+"|"))return;const u=UP.find(x=>x.id==key.slice(n.length+1));if(!u)return;const r=MM().find(m=>m.k==u.k&&m.h==u.h&&m.a==u.a);if(!r)return;t+=v.h==r.hg&&v.a==r.ag?5:Math.sign(v.h-v.a)==Math.sign(r.hg-r.ag)?2:0});return t},
 rk=o=>{const m={};Object.entries(o.b||{}).forEach(([k,v])=>{const n=k.split("|")[0];m[n]=(m[n]||0)+v});Object.keys(o.p||{}).forEach(k=>{const n=k.split("|")[0];m[n]=m[n]||0});Object.keys(m).forEach(n=>{m[n]+=ppts(o,n)});return Object.entries(m).sort((a,b)=>b[1]-a[1])};
 let Q1=null,Q2=null,Q3=null,Q5=null;
 const r1=()=>{$("#v").innerHTML=g1()},r2=()=>{$("#v").innerHTML=g2()},r3=()=>{$("#v").innerHTML=g3()},r4=()=>{$("#v").innerHTML=g4()},r5=()=>{$("#v").innerHTML=g5()};
 window.mn=v=>{const o=ld();o.n=v.replace(/\|/g,"").trim().slice(0,20);sv(o);$("#v").innerHTML=mj("")};
-function mj(s){if(s=="quien")return g1();if(s=="mas")return g2();if(s=="trivia")return g3();if(s=="pron")return g4();if(s=="temp")return g5();
-Q1=Q2=Q3=Q5=null;const o=ld(),me=o.n||"Jugador",R2=rk(o);
+function mj(s){if(s=="quien")return g1();if(s=="mas")return g2();if(s=="trivia")return g3();if(s=="pron")return g4();if(s=="temp")return g5();if(s=="intruso")return g6();if(s=="crono")return g7();if(s=="ranking")return g8();
+Q1=Q2=Q3=Q5=Q6=Q7=Q8=null;const o=ld(),me=o.n||"Jugador",R2=rk(o);
 return `<h2>Minijuegos</h2><p class="nt">Los puntajes de los minijuegos son aparte de las estadísticas de la liga: jugar no las modifica. Se guardan en este dispositivo.</p>
 <label>Tu nombre<input value="${o.n||""}" placeholder="Jugador" onchange="mn(this.value)"></label>
 <div class="g" style="margin-top:12px">${Object.entries(GN).map(([g,[i,t,d]])=>`<a class="c gc" href="#minijuegos-${g}"><span>${i} ${t}</span><small>${d}</small><em class="pb">Jugar</em></a>`).join("")}</div>
-<h3>Tus récords</h3>${tbl(["Juego","Mejor puntaje"],Object.entries(GN).map(([g,v])=>[v[1],g=="pron"?ppts(o,me):(o.b||{})[me+"|"+g]||0]))}<p class="nt">Mejor racha en ¿Quién tiene más?: ${(o.s||{})[me]||0}</p>
+<h3>Tus récords</h3>${tbl(["Juego","Partidas","Mejor puntaje","Aciertos"],Object.entries(GN).map(([g,v])=>{const z=(o.z||{})[me+"|"+g]||{n:0,s:0,m:0};return[v[1],z.n,g=="pron"?ppts(o,me):(o.b||{})[me+"|"+g]||0,z.m?Math.round(z.s/z.m*100)+"%":"-"]}))}<p class="nt">Mejor racha en ¿Quién tiene más?: ${(o.s||{})[me]||0}</p>
 <h3>Ranking en este dispositivo</h3>${R2.length?tbl(["Nombre","Puntos"],R2):`<p class="nt">Todavía no hay puntajes.</p>`}
 <h3>Últimas partidas</h3>${(o.h||[]).length?tbl(["Jugador","Juego","Puntaje"],o.h.slice(0,10).map(x=>[x.n,GN[x.g][1],x.sc+(x.mx?" de "+x.mx:"")])):`<p class="nt">Todavía no jugaste.</p>`}`}
 function g1(){if(!Q1)Q1={n:rnd(ALL),i:1,s:0,m:""};const n=Q1.n,d=pd(n,K),t=d.t,
@@ -255,6 +255,72 @@ if(Q5.n>=N)return `${bk}<h2>¿De qué temporada es?</h2><div class="c ok"><span>
 return `${bk}<h2>¿De qué temporada es?</h2><p class="nt">Ronda ${Q5.n+1} de ${N} | Puntos: ${Q5.sc}. Con menos pistas ganás más puntos.</p>${it.c.slice(0,Q5.c).map((x,i)=>`<div class="c"><b>Pista ${i+1}</b><small>${x}</small></div>`).join("")}<div style="margin-top:10px">${K.map(k=>`<button class="op ${Q5.a?(k==it.k?"ok":Q5.a==k?"ko":""):""}" ${Q5.a?"disabled":""} onclick="g5a('${k}')">${D[k].n}</button>`).join("")}</div>${Q5.a?`<button class="btn" onclick="g5n()">${Q5.n+1>=N?"Ver resultado":"Siguiente"}</button>`:(Q5.c<it.c.length?`<button class="btn" onclick="Q5.c++;r5()">Pedir otra pista</button>`:"")}`}
 window.g5a=k=>{if(Q5.a)return;Q5.a=k;if(k==Q5.it.k)Q5.sc+=Math.max(1,4-Q5.c);if(Q5.n+1>=8)fin("temp",Q5.sc,24);r5()};
 window.g5n=()=>{Q5.n++;Q5.it=i5();Q5.c=1;Q5.a=null;r5()};
+let Q6=null,Q7=null,Q8=null;
+const ST6=[["goles",2,1],["asistencias",3,2],["MVP",7,6],["tiros",6,5],["salvadas",4,3],["salvadas épicas",5,4]],ST8=[...ST6,["partidos jugados",1,0]],DF=["Fácil","Media","Difícil"],PT=[5,10,15],
+r6=()=>{$("#v").innerHTML=g6()},r7=()=>{$("#v").innerHTML=g7()},r8=()=>{$("#v").innerHTML=g8()},
+sw=(a,i,d)=>{const j=i+d;if(j>=0&&j<a.length)[a[i],a[j]]=[a[j],a[i]]},
+ol=(a,fn,lock)=>a.map((x,i)=>`<div class="c ${lock?(x.ok?"ok":"ko"):""}" style="display:flex;align-items:center;gap:8px"><b style="min-width:1.4em">${i+1}</b><span style="flex:1;font:600 1.05rem/1.3 Barlow,system-ui,sans-serif">${x.l}${lock&&x.r?`<br><small>${x.r}</small>`:""}</span>${lock?"":`<button class="btn" style="margin:0" onclick="${fn}(${i},-1)">▲</button><button class="btn" style="margin:0" onclick="${fn}(${i},1)">▼</button>`}</div>`).join(""),
+fz=(ms,x,hint,why)=>{const o=shuf([...ms,x]);return{o,i:o.indexOf(x),hint,why}},
+pr=n=>{const t=pd(n,K).t;return t[1]+t[2]},
+zc=dif=>{const defs=[["ganaron una Liga",n=>pd(n,K).col.some(c=>/Liga/.test(c))],["ganaron una Copa",n=>pd(n,K).col.some(c=>/Copa/.test(c)&&!/Super/.test(c))],["ganaron una Supercopa",n=>pd(n,K).col.some(c=>/Supercopa/.test(c))],["ganaron algún premio individual",n=>pd(n,K).ind.length>0]],
+[lb,f]=rnd(defs),pl=ALL.filter(n=>pd(n,K).t[0]>0),S=pl.filter(f).sort((a,b)=>pr(b)-pr(a)),C=pl.filter(n=>!f(n)).sort((a,b)=>pr(b)-pr(a));
+if(S.length<3||!C.length)return null;
+const ms=dif==0?shuf(S.slice(0,5)).slice(0,3):dif==2?shuf(S.slice(-6)).slice(0,3):shuf(S).slice(0,3),x=dif==0?rnd(C.slice(-5)):dif==2?rnd(C.slice(0,5)):rnd(C),
+it=n=>{const d=pd(n,K);return[...d.col,...d.ind].join(", ")||"sin títulos ni premios"};
+return fz(ms,x,dif==0?`Tres ${lb}.`:dif==1?"Tiene que ver con títulos y premios.":"Tres comparten un título o un premio.",`Los tres ${lb}: ${ms.map(n=>`${n} (${it(n)})`).join("; ")}. ${x} no.`)},
+zn=dif=>{const sc=rnd(["s","c"]),[sn,ri,ti]=rnd(ST6),E=(sc=="s"?K.flatMap(k=>D[k].st.map(r=>({l:`${r[0]} (${D[k].s})`,n:r[0],v:r[ri]}))):ALL.map(n=>({l:n,n,v:pd(n,K).t[ti]}))).filter(e=>e.v!=null),x=rnd(E.filter(e=>e.v>(sn=="MVP"?0:2)));
+if(!x)return null;const lo=dif==0?x.v/.4:dif==1?x.v/.75:x.v+1e-9,hi=dif==0?1e9:dif==1?x.v/.45:x.v/.8,P2=E.filter(e=>e.n!=x.n&&e.v>=lo&&e.v<=hi),nm=[...new Set(P2.map(e=>e.n))];
+if(nm.length<3)return null;const ms=shuf(nm).slice(0,3).map(n=>rnd(P2.filter(e=>e.n==n))),mn=Math.min(...ms.map(e=>e.v));if(mn<(sn=="MVP"?3:5))return null;const sp=sc=="s"?"en una temporada":"en toda la historia";
+return fz(ms.map(e=>e.l),x.l,dif==0?`Los tres hicieron ${mn} ${sn} o más ${sp}.`:dif==1?`Tiene que ver con ${sn} ${sp}.`:"Tres comparten una estadística.",`Los tres hicieron ${mn} ${sn} o más ${sp}: ${ms.map(e=>e.l+" "+e.v).join(", ")}. ${x.l} hizo solo ${x.v}.`)},
+pz6=dif=>{for(let t=0;t<300;t++){const z=Math.random()<.4?zc(dif):zn(dif);if(z)return z}return null};
+function g6(){if(!Q6)Q6={d:null,n:0,sc:0,ok:0,z:null,a:null};const N=8;
+if(Q6.d==null)return `${bk}<h2>El intruso</h2><p class="nt">Vas a ver cuatro opciones: tres comparten algo y una no. Elegí al intruso. Son 8 rondas y cada acierto suma puntos según la dificultad.</p>${DF.map((d,i)=>`<button class="op" onclick="g6d(${i})">${d} (${PT[i]} puntos por acierto)</button>`).join("")}`;
+if(Q6.n>=N)return `${bk}<h2>El intruso</h2><div class="c ok"><span>${Q6.sc} puntos</span><small>Dificultad ${DF[Q6.d]}. Correctas: ${Q6.ok} | Incorrectas: ${N-Q6.ok} | Aciertos: ${Math.round(Q6.ok/N*100)}%</small></div><p><button class="btn" onclick="Q6=null;r6()">Jugar otra vez</button></p>`;
+if(!Q6.z)Q6.z=pz6(Q6.d);const z=Q6.z;if(!z)return `${bk}<h2>El intruso</h2><p class="nt">No hay datos suficientes para armar la ronda.</p>`;
+return `${bk}<h2>El intruso</h2><p class="nt">Ronda ${Q6.n+1} de ${N} | Dificultad ${DF[Q6.d]} | Puntos: ${Q6.sc}</p><div class="c"><b>Pista</b><small>${z.hint}</small></div>${z.o.map((o,i)=>`<button class="op ${Q6.a!=null?(i==z.i?"ok":Q6.a==i?"ko":""):""}" ${Q6.a!=null?"disabled":""} onclick="g6a(${i})">${o}</button>`).join("")}${Q6.a!=null?`<div class="c"><small>${z.why}</small></div><button class="btn" onclick="g6n()">${Q6.n+1>=N?"Ver resultado":"Siguiente"}</button>`:""}`}
+window.g6d=d=>{Q6.d=d;r6()};
+window.g6a=i=>{if(Q6.a!=null)return;Q6.a=i;if(i==Q6.z.i){Q6.ok++;Q6.sc+=PT[Q6.d]}if(Q6.n+1>=8)fin("intruso",Q6.sc,8*PT[Q6.d]);r6()};
+window.g6n=()=>{Q6.n++;Q6.z=null;Q6.a=null;r6()};
+const RG=/^(.+?) (\d+)-(\d+)(?: \(OT\))? (.+?)(?: \((?:abandono|abandonado)[^)]*\))?$/,
+ev7=()=>{const out=[];K.forEach((k,si)=>{const ms=P[k].map((q,i)=>{const[r,m,,,pl]=q.split("|"),x=m.match(RG);return x?{i,r,m,hg:+x[2],ag:+x[3],pl:pl?pl.split(",").map(p=>{const w=p.split(" ");return{n:w.slice(0,-5).join(" "),g:+w[w.length-5]}}):null}:null}).filter(Boolean),
+lf=Math.max(-1,...ms.filter(m=>m.r.startsWith("Fecha")).map(m=>m.i)),sn=D[k].s,dn=Object.keys(D[k].ch).length>0,add=(key,l,w,rd)=>out.push({key:si*1000+key,l,w,si,rd:rd||"x"+key}),
+top1=f=>{const v=Math.max(...ms.map(f)),h=ms.filter(m=>f(m)==v);return h.length==1?h[0]:null};
+Object.entries(D[k].ch).forEach(([c,t])=>{if(c=="Liga"&&lf>=0)add(lf+.5,`${t} se consagra campeón de la Liga${D[k].fin.Liga?" (por decreto)":""}`,`${sn}, al terminar la Liga`)});
+ms.filter(m=>m.r=="Copa, final"||m.r=="Supercopa").forEach(m=>add(m.i,`${m.r=="Supercopa"?"Supercopa":"Final de Copa"}: ${m.m}`,`${sn}, ${m.r}`,m.r));
+ms.filter(m=>/\(OT\)/.test(m.m)).forEach(m=>add(m.i,`Partido definido en prórroga: ${m.m}`,`${sn}, ${m.r}`,m.r));
+const g=top1(m=>Math.abs(m.hg-m.ag)),t2=top1(m=>m.hg+m.ag);
+if(g&&dn)add(g.i,`Mayor goleada de su temporada: ${g.m}`,`${sn}, ${g.r}`,g.r);if(t2&&dn)add(t2.i,`Partido con más goles de su temporada: ${t2.m}`,`${sn}, ${t2.r}`,t2.r);
+const pg=ms.flatMap(m=>(m.pl||[]).map(p=>({...p,m}))),mx=Math.max(0,...pg.map(p=>p.g)),h=pg.filter(p=>p.g==mx);
+if(dn&&h.length==1&&mx>0)add(h[0].m.i,`${h[0].n} hace ${mx} goles en un partido`,`${sn}, ${h[0].m.r}: ${h[0].m.m}`,h[0].m.r)});
+const u={};out.forEach(e=>{if(!u[e.key])u[e.key]=e});return Object.values(u)},
+pk7=dif=>{const E=ev7(),by={};E.forEach(e=>{(by[e.si]=by[e.si]||[]).push(e)});const ks=Object.keys(by);
+for(let t=0;t<200;t++){let a;
+if(dif==0){if(ks.length<3)return null;a=shuf(ks).slice(0,3).map(s=>rnd(by[s]))}
+else if(dif==1){a=shuf(E).slice(0,4);const cn={};a.forEach(e=>{cn[e.si]=(cn[e.si]||0)+1});if(Object.values(cn).some(c=>c>2))continue}
+else{const ok=ks.filter(s=>by[s].length>=3);if(!ok.length)return null;const s=rnd(ok);a=[...shuf(by[s]).slice(0,3),...shuf(E.filter(e=>e.si!=s)).slice(0,2)]}
+if(new Set(a.map(e=>e.si+"|"+e.rd)).size<a.length)continue;
+const sorted=[...a].sort((x,y)=>x.key-y.key);let c=shuf(a),g=0;while(c.every((e,i)=>e==sorted[i])&&g++<20)c=shuf(a);return{sorted,cur:c}}return null};
+function g7(){if(!Q7)Q7={d:null,n:0,sc:0,mx:0,z:null,done:false};const N=5;
+if(Q7.d==null)return `${bk}<h2>La cronología</h2><p class="nt">Vas a ver acontecimientos de la liga desordenados. Ordenalos del más antiguo al más reciente con las flechas y confirmá. En Fácil están muy separados en el tiempo y en Difícil son de la misma temporada. Son 5 rondas: ganás 1 punto por cada acontecimiento bien ubicado, multiplicado por la dificultad.</p>${DF.map((d,i)=>`<button class="op" onclick="g7d(${i})">${d} (x${i+1} por acierto)</button>`).join("")}`;
+if(Q7.n>=N)return `${bk}<h2>La cronología</h2><div class="c ok"><span>${Q7.sc} puntos</span><small>Dificultad ${DF[Q7.d]}. Máximo posible: ${Q7.mx}</small></div><p><button class="btn" onclick="Q7=null;r7()">Jugar otra vez</button></p>`;
+if(!Q7.z)Q7.z=pk7(Q7.d);const z=Q7.z;if(!z)return `${bk}<h2>La cronología</h2><p class="nt">No hay datos suficientes para armar la ronda.</p>`;
+return `${bk}<h2>La cronología</h2><p class="nt">Ronda ${Q7.n+1} de ${N} | Puntos: ${Q7.sc}. Ordená del más antiguo al más reciente.</p>${Q7.done?`${ol(z.cur.map((e,i)=>({l:e.l,ok:e==z.sorted[i],r:""})),"",1)}<h3>Orden correcto</h3>${ol(z.sorted.map(e=>({l:e.l,ok:1,r:e.w})),"",1)}<button class="btn" onclick="g7n()">${Q7.n+1>=N?"Ver resultado":"Siguiente"}</button>`:`${ol(z.cur.map(e=>({l:e.l})),"mv7")}<button class="btn" onclick="g7c()">Confirmar orden</button>`}`}
+window.g7d=d=>{Q7.d=d;r7()};
+window.mv7=(i,d)=>{sw(Q7.z.cur,i,d);r7()};
+window.g7c=()=>{const z=Q7.z,n=z.cur.length,c=z.cur.filter((e,i)=>e==z.sorted[i]).length,f=Q7.d+1;Q7.sc+=c*f;Q7.mx+=n*f;Q7.done=true;if(Q7.n+1>=5)fin("crono",Q7.sc,Q7.mx);r7()};
+window.g7n=()=>{Q7.n++;Q7.z=null;Q7.done=false;r7()};
+const it8=()=>{const[sn,ri,ti]=rnd(ST8),sc=rnd(["s","c"]),kk=rnd(K.filter(x=>D[x].st.length>=5)),c=rnd([3,4,5]);
+let E=(sc=="s"?D[kk].st.map(r=>({l:r[0],n:r[0],v:r[ri]})):ALL.map(n=>({l:n,n,v:pd(n,K).t[ti]}))).filter(e=>e.v!=null);const a=[],un=new Set(),uv=new Set();
+shuf(E).forEach(e=>{if(a.length<c&&!un.has(e.n)&&!uv.has(e.v)){a.push(e);un.add(e.n);uv.add(e.v)}});if(a.length<c)return it8();
+const sorted=[...a].sort((x,y)=>y.v-x.v);let cur=shuf(a),g=0;while(cur.every((e,i)=>e==sorted[i])&&g++<20)cur=shuf(a);
+return{sn,sp:sc=="s"?"en la "+D[kk].n:"en toda la historia",sorted,cur}};
+function g8(){if(!Q8)Q8={n:0,sc:0,mx:0,z:it8(),done:false};const N=6;
+if(Q8.n>=N)return `${bk}<h2>Ordená el ranking</h2><div class="c ok"><span>${Q8.sc} puntos</span><small>Máximo posible: ${Q8.mx}</small></div><p><button class="btn" onclick="Q8=null;r8()">Jugar otra vez</button></p>`;
+const z=Q8.z;
+return `${bk}<h2>Ordená el ranking</h2><p class="nt">Ordená a los jugadores de mayor a menor con las flechas y confirmá. No ves los números hasta confirmar. Ganás 1 punto por cada jugador bien ubicado y 2 más si acertás todo.</p><div class="c"><b>Ronda ${Q8.n+1} de ${N} | Puntos: ${Q8.sc}</b><span>Por ${z.sn} ${z.sp}</span></div>${Q8.done?`${ol(z.cur.map((e,i)=>({l:e.l,ok:e==z.sorted[i],r:""})),"",1)}<h3>Ranking correcto</h3>${ol(z.sorted.map(e=>({l:e.l,ok:1,r:e.v+" "+z.sn})),"",1)}<button class="btn" onclick="g8n()">${Q8.n+1>=N?"Ver resultado":"Siguiente"}</button>`:`${ol(z.cur.map(e=>({l:e.l})),"mv8")}<button class="btn" onclick="g8c()">Confirmar ranking</button>`}`}
+window.mv8=(i,d)=>{sw(Q8.z.cur,i,d);r8()};
+window.g8c=()=>{const z=Q8.z,n=z.cur.length,c=z.cur.filter((e,i)=>e==z.sorted[i]).length;Q8.sc+=c+(c==n?2:0);Q8.mx+=n+2;Q8.done=true;if(Q8.n+1>=6)fin("rank",Q8.sc,Q8.mx);r8()};
+window.g8n=()=>{Q8.n++;Q8.z=it8();Q8.done=false;r8()};
 function route(){const h=location.hash.slice(1)||"inicio";let v;
 if(K.includes(h))v=season(h);else if(h=="jugadores")v=plist();else if(h=="comparador")v=comp();else if(h=="records")v=rec();else if(h.startsWith("minijuegos"))v=mj(h.slice(11));else if(h.startsWith("partidos"))v=part(K.includes(h.slice(9))?h.slice(9):"t1");
 else if(h.startsWith("p-")){const n=ALL.find(x=>"p-"+slug(x)==h);v=n?prof(n):`<p class="nt">No encontré a ese jugador.</p>`}else v=home();
