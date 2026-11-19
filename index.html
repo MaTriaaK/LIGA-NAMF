@@ -49,6 +49,10 @@ input,select{font:inherit;padding:9px 10px;border:1px solid var(--ln);border-rad
 .ko{border-color:#d0392f!important;background:color-mix(in srgb,#d0392f 20%,var(--sf))!important;animation:sh .35s}
 @keyframes pop{50%{transform:scale(1.03)}}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 @media(prefers-reduced-motion:reduce){.ok,.ko{animation:none}}
+.gg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:12px 0}
+.gh{font-size:.8rem;font-weight:600;padding:6px 4px;background:var(--sf);border:1px solid var(--ln);border-radius:4px;display:flex;align-items:center;justify-content:center;text-align:center;min-height:60px;overflow-wrap:anywhere}
+.gc{min-height:72px;font:600 .95rem/1.2 Barlow,system-ui,sans-serif;border:1px solid var(--ln);border-radius:4px;background:var(--sf);color:var(--tx);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4px;overflow-wrap:anywhere}
+.gc.sel{border-color:var(--or);box-shadow:0 0 0 2px var(--or)}.gc small{font-weight:400;font-size:.7rem;color:var(--mu)}.btn.ln{background:var(--sf);color:var(--tx);border-color:var(--ln)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .rt{color:#ff7a70}}
 :root[data-theme="dark"] .rt{color:#ff7a70}
 .w{overflow-x:auto;background:var(--sf);border:1px solid var(--ln);border-radius:4px}
@@ -198,7 +202,7 @@ return `<h2>Récords históricos</h2><p class="nt">Se calculan solos con los dat
 +sec("Récords de temporadas",[tr("Mayor cantidad de puntos",x=>x.pt),tr("Mayor diferencia de goles",x=>x.gf-x.ge),tr("Mayor cantidad de victorias",x=>x.g),tr("Mayor cantidad de goles recibidos",x=>x.ge),em&&em.v?cd("Mayor cantidad de empates",em,tk):`<div class="c"><b>Mayor cantidad de empates</b><span>0</span><small>No hubo empates en ninguna Liga</small></div>`,tr("Mayor cantidad de derrotas",x=>x.p)])
 +`<p class="nt">Notas: se cuenta como final la final de Copa y la Supercopa. Los récords por partido usan solo los partidos con estadísticas (en la T2 faltan 2 partidos de Copa sin repetición, y en el partido APELO FC contra Einchenwalde Kriegers de la T3 las estadísticas son aproximadas). Las rachas de goles cruzan temporadas: en la T1 se toma que cada jugador jugó todos los partidos de su equipo, y un partido sin estadísticas corta la racha. Los equipos se cuentan por nombre y pueden tener otros integrantes en cada temporada. Las victorias, los goles y las rachas de equipo incluyen Liga, Copa y Supercopa. Los récords de temporadas usan la tabla de la Liga, y la T3 quedó incompleta.</p>`}
 const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>[...a].sort(()=>Math.random()-.5),
-GN={quien:["🕵️","¿Quién es el jugador?","Descubrí al jugador misterioso con pistas que se van sumando."],mas:["🆚","¿Quién tiene más?","Elegí quién tiene el valor más alto y armá tu racha."],trivia:["❓","Trivia NAMF","10 preguntas sobre la historia de la liga."],pron:["🎯","Pronósticos","Pronosticá resultados antes de que empiece cada partido."],temp:["📅","¿De qué temporada es?","Adiviná a qué temporada pertenece cada dato."],intruso:["🧩","El intruso","Tres comparten algo y uno no. Encontrá al intruso."],crono:["⏳","La cronología","Ordená acontecimientos de la liga del más antiguo al más reciente."],rank:["📊","Ordená el ranking","Ordená jugadores de mayor a menor según una estadística."]},
+GN={quien:["🕵️","¿Quién es el jugador?","Descubrí al jugador misterioso con pistas que se van sumando."],mas:["🆚","¿Quién tiene más?","Elegí quién tiene el valor más alto y armá tu racha."],trivia:["❓","Trivia NAMF","10 preguntas sobre la historia de la liga."],pron:["🎯","Pronósticos","Pronosticá resultados antes de que empiece cada partido."],temp:["📅","¿De qué temporada es?","Adiviná a qué temporada pertenece cada dato."],intruso:["🧩","El intruso","Tres comparten algo y uno no. Encontrá al intruso."],crono:["⏳","La cronología","Ordená acontecimientos de la liga del más antiguo al más reciente."],rank:["📊","Ordená el ranking","Ordená jugadores de mayor a menor según una estadística."],grid:["🔲","NAMF GRID","Completá la cuadrícula de 3x3 con jugadores que cumplan la fila y la columna."]},
 ld=()=>{try{return JSON.parse(localStorage.getItem("namf-mj")||"{}")}catch(e){return{}}},
 sv=o=>{try{localStorage.setItem("namf-mj",JSON.stringify(o))}catch(e){}},
 MM=()=>K.flatMap(k=>P[k].map(s=>{const[r,m]=s.split("|"),x=m.match(/^(.+?) (\d+)-(\d+)(?: \(OT\))? (.+?)(?: \((?:abandono|abandonado)[^)]*\))?$/);return x?{k,r,m,h:x[1],hg:+x[2],ag:+x[3],a:x[4]}:null}).filter(Boolean)),
@@ -210,7 +214,7 @@ rk=o=>{const m={};Object.entries(o.b||{}).forEach(([k,v])=>{const n=k.split("|")
 let Q1=null,Q2=null,Q3=null,Q5=null;
 const r1=()=>{$("#v").innerHTML=g1()},r2=()=>{$("#v").innerHTML=g2()},r3=()=>{$("#v").innerHTML=g3()},r4=()=>{$("#v").innerHTML=g4()},r5=()=>{$("#v").innerHTML=g5()};
 window.mn=v=>{const o=ld();o.n=v.replace(/\|/g,"").trim().slice(0,20);sv(o);$("#v").innerHTML=mj("")};
-function mj(s){if(s=="quien")return g1();if(s=="mas")return g2();if(s=="trivia")return g3();if(s=="pron")return g4();if(s=="temp")return g5();if(s=="intruso")return g6();if(s=="crono")return g7();if(s=="ranking")return g8();
+function mj(s){if(s=="quien")return g1();if(s=="mas")return g2();if(s=="trivia")return g3();if(s=="pron")return g4();if(s=="temp")return g5();if(s=="intruso")return g6();if(s=="crono")return g7();if(s=="rank")return g8();if(s=="grid")return gg();
 Q1=Q2=Q3=Q5=Q6=Q7=Q8=null;const o=ld(),me=o.n||"Jugador",R2=rk(o);
 return `<h2>Minijuegos</h2><p class="nt">Los puntajes de los minijuegos son aparte de las estadísticas de la liga: jugar no las modifica. Se guardan en este dispositivo.</p>
 <label>Tu nombre<input value="${o.n||""}" placeholder="Jugador" onchange="mn(this.value)"></label>
@@ -321,6 +325,54 @@ return `${bk}<h2>Ordená el ranking</h2><p class="nt">Ordená a los jugadores de
 window.mv8=(i,d)=>{sw(Q8.z.cur,i,d);r8()};
 window.g8c=()=>{const z=Q8.z,n=z.cur.length,c=z.cur.filter((e,i)=>e==z.sorted[i]).length;Q8.sc+=c+(c==n?2:0);Q8.mx+=n+2;Q8.done=true;if(Q8.n+1>=6)fin("rank",Q8.sc,Q8.mx);r8()};
 window.g8n=()=>{Q8.n++;Q8.z=it8();Q8.done=false;r8()};
+let GR=null;
+const rG=()=>{$("#v").innerHTML=gg()},
+gst=f=>{const o=ld(),n=o.n||"Jugador";o.g=o.g||{};const s=o.g[n]=o.g[n]||{p:0,c:0,a:0,k:0,b:0};f(s);sv(o)},
+ghl=()=>{try{return JSON.parse(localStorage.getItem("namf-gh")||"[]")}catch(e){return[]}},
+played=(n,k)=>D[k].st.some(r=>r[0]==n)||Object.values(R[k]).some(p=>p.includes(n)),
+gk=()=>{const PL=ALL.filter(n=>pd(n,K).t[0]>0),tt={};PL.forEach(n=>{tt[n]=pd(n,K)});const cs=[],
+add=(id,fam,l,f)=>{const s=new Set(PL.filter(f));if(s.size>=3&&s.size<=PL.length-3)cs.push({id,fam,l,s})};
+[["goles",1],["asistencias",2],["MVP",6],["tiros",5],["salvadas",3],["salvadas épicas",4],["partidos jugados",0]].forEach(([nm,ti])=>{const v=PL.map(n=>tt[n].t[ti]).sort((a,b)=>b-a);[4,8,12].forEach(q=>{let T=v[q];if(T>=20)T=Math.floor(T/5)*5;if(T>0)add(nm+T,"c"+nm,ti==0?`Jugó ${T} partidos o más`:`Hizo ${T} ${nm} o más en su carrera`,n=>tt[n].t[ti]>=T)})});
+[["goles",2],["asistencias",3],["MVP",7],["salvadas",4]].forEach(([nm,ri])=>{const v=K.flatMap(k=>D[k].st.map(r=>r[ri])).sort((a,b)=>b-a);[6,12].forEach(q=>{let T=v[q];if(T>=20)T=Math.floor(T/5)*5;if(T>0)add("s"+nm+T,"s"+nm,`Hizo ${T} ${nm} o más en una temporada`,n=>K.some(k=>D[k].st.some(r=>r[0]==n&&r[ri]>=T)))})});
+K.forEach(k=>add("t"+k,"t"+k,`Jugó en la ${D[k].n}`,n=>played(n,k)));
+add("t3p","tn","Jugó 3 temporadas o más",n=>K.filter(k=>played(n,k)).length>=3);
+[["Liga","Ganó una Liga",/Liga/],["Copa","Ganó una Copa",/Copa/],["Supercopa","Ganó una Supercopa",/Supercopa/]].forEach(([id,l,re])=>add("w"+id,"w"+id,l,n=>tt[n].col.some(c=>re.test(c)&&(id!="Copa"||!/Super/.test(c)))));
+add("wt","wt","Ganó algún título de equipo",n=>tt[n].col.length>0);add("wi","wi","Ganó algún premio individual",n=>tt[n].ind.length>0);
+["Bota de Oro","Guante de Oro","Jugador revelación","Balón de Oro","Puskás"].forEach(a=>add("a"+a,"a"+a,`Ganó el premio “${a}”`,n=>tt[n].ind.some(x=>x.startsWith(a))));
+add("ret","ret","Está retirado",n=>RT.includes(n));
+[...new Set(K.flatMap(k=>Object.keys(R[k])))].forEach(t=>add("e"+t,"e"+t,`Jugó en ${t}`,n=>K.some(k=>(R[k][t]||[]).includes(n))));
+const pm={};K.forEach(k=>P[k].forEach(q=>{const pl=q.split("|")[4];if(pl)pl.split(",").forEach(p=>{const w=p.split(" "),n=w.slice(0,-5).join(" "),g=+w[w.length-5];if(g>(pm[n]||0))pm[n]=g})}));
+const gv=PL.map(n=>pm[n]||0).sort((a,b)=>b-a);[6,12].forEach(q=>{const T=gv[q];if(T>0)add("pm"+T,"pm",`Marcó ${T} goles o más en un partido`,n=>(pm[n]||0)>=T)});return cs},
+hm=c=>{let n=0;const used=new Set(),ord=c.map((x,i)=>i).sort((a,b)=>c[a].length-c[b].length),go=i=>{if(i==9)return true;if(++n>30000)return false;for(const p of c[ord[i]]){if(used.has(p))continue;used.add(p);if(go(i+1))return true;used.delete(p)}return false};return go(0)},
+gnew=()=>{const cs=gk(),hs=ghl();const tg=rnd([0,1,2]);let mk=[3,2,1][tg];
+for(let t=0;t<5000;t++){if(t==2500)mk=1;const pk=shuf(cs).slice(0,6);if(new Set(pk.map(c=>c.fam)).size<6)continue;
+const Rw=pk.slice(0,3),Cl=pk.slice(3),cells=Rw.flatMap(r=>Cl.map(c=>[...r.s].filter(n=>c.s.has(n))));
+if(Math.min(...cells.map(x=>x.length))<mk)continue;const avg=cells.reduce((s,x)=>s+x.length,0)/9;if(t<3000&&!(tg==0?avg>=6:tg==1?avg>=3&&avg<6:avg<3))continue;const ids=pk.map(c=>c.id);
+if(t<4000&&hs.slice(0,6).some(h=>h.filter(i=>ids.includes(i)).length>=4))continue;if(!hm(cells))continue;
+hs.unshift(ids);try{localStorage.setItem("namf-gh",JSON.stringify(hs.slice(0,12)))}catch(e){}
+return{R:Rw,C:Cl,cells:cells.map(x=>({c:x,a:null,auto:false})),dif:avg>=6?"Fácil":avg>=3?"Media":"Difícil",sel:null,msg:"",mk:0,att:0,ok:0,st:0,done:false}}return null},
+gstart=()=>{GR=gnew();if(!GR)return;GR.cells.forEach(c=>{if(c.c.length==1){c.a=c.c[0];c.auto=true}});gst(s=>{s.p++});if(GR.cells.every(c=>c.a)){GR.done=true;gst(s=>{s.c++});fin("grid",9,9)}};
+function gg(){if(!GR)gstart();const g=GR;if(!g)return `${bk}<h2>NAMF GRID</h2><p class="nt">No hay datos suficientes para armar una cuadrícula.</p>`;
+const fl=g.cells.filter(x=>x.a).length,o=ld(),me=o.n||"Jugador",s=(o.g||{})[me]||{p:0,c:0,a:0,k:0,b:0},hd=c=>`<div class="gh">${c.l}</div>`,
+cell=i=>{const x=g.cells[i];return x.a?`<div class="gc ok">${x.a}${x.auto?"<small>automático</small>":""}</div>`:`<button class="gc${g.sel==i?" sel":""}" ${g.done?"disabled":""} onclick="gs(${i})">+</button>`},
+panel=()=>{const r=g.R[Math.floor(g.sel/3)],c=g.C[g.sel%3];return `<div class="c"><b>${r.l} + ${c.l}</b><datalist id="gl2">${ALL.map(n=>`<option value="${n}">`).join("")}</datalist><p><input id="gp" list="gl2" placeholder="Buscar jugador" onkeydown="if(event.key=='Enter')gp()"></p><button class="btn" onclick="gp()">Confirmar</button><button class="btn ln" onclick="GR.sel=null;rG()">Cancelar</button></div>`},
+res=`<div class="c ${fl==9?"ok":""}"><b>Resultado</b><span>${fl} de 9 casillas</span><small>${fl==9?"¡Cuadrícula completa!":"Partida terminada."} Aciertos: ${g.att?Math.round(g.ok/g.att*100):0}% (${g.ok} de ${g.att} intentos).</small></div>${g.cells.some(x=>!x.a)?`<h3>Respuestas posibles</h3>${g.cells.map((x,i)=>x.a?"":`<div class="c"><b>${g.R[Math.floor(i/3)].l} + ${g.C[i%3].l}</b><small>${x.c.slice(0,6).join(", ")}</small></div>`).join("")}`:""}`;
+return `${bk}<h2>NAMF GRID</h2><p class="nt">Completá la cuadrícula con jugadores que cumplan la condición de la fila y la de la columna. No se repiten jugadores, y no hay límite de intentos ni de partidas. Dificultad: ${g.dif}.</p>
+<div class="gg"><div class="gh">GRID</div>${g.C.map(hd).join("")}${g.R.map((r,i)=>hd(r)+[0,1,2].map(j=>cell(i*3+j)).join("")).join("")}</div>
+<p class="nt">Completadas: ${fl} de 9 | Esta partida: ${g.ok} aciertos de ${g.att} intentos | Racha: ${g.st}</p>${g.msg?`<div class="c ${g.mk?"ok":"ko"}"><small>${g.msg}</small></div>`:""}
+${g.done?res:g.sel!=null?panel():`<p class="nt">Tocá una casilla para elegir un jugador.</p>`}
+<p><button class="btn" onclick="gn()">Nueva partida</button>${g.done?"":`<button class="btn ln" onclick="gt()">Terminar partida</button>`}</p>
+<h3>Tus estadísticas</h3>${tbl(["Jugadas","Completadas","Correctas","Aciertos","Mejor racha"],[[s.p,s.c,s.k,s.a?Math.round(s.k/s.a*100)+"%":"-",s.b]])}`}
+window.gs=i=>{if(GR.done||GR.cells[i].a)return;GR.sel=i;GR.msg="";rG()};
+window.gp=()=>{const g=GR,v=$("#gp").value,n=ALL.find(x=>slug(x)==slug(v)),x=g.cells[g.sel];
+if(!n){g.msg="Ese jugador no está en la lista. Elegí uno de las sugerencias.";g.mk=0;rG();return}
+g.att++;
+if(g.cells.some(c=>c.a==n)){g.msg=`Ya usaste a ${n} en otra casilla. Probá con otro jugador.`;g.mk=0;g.st=0;gst(s=>{s.a++})}
+else if(x.c.includes(n)){x.a=n;g.ok++;g.st++;g.msg=`¡Correcto! ${n} cumple las dos condiciones.`;g.mk=1;g.sel=null;gst(s=>{s.a++;s.k++;if(g.st>s.b)s.b=g.st})}
+else{g.st=0;g.msg=`${n} no cumple las dos condiciones. Probá de nuevo.`;g.mk=0;gst(s=>{s.a++})}
+if(g.cells.every(c=>c.a)){g.done=true;gst(s=>{s.c++});fin("grid",9,9)}rG()};
+window.gt=()=>{GR.done=true;GR.sel=null;fin("grid",GR.cells.filter(x=>x.a).length,9);rG()};
+window.gn=()=>{GR=null;rG()};
 function route(){const h=location.hash.slice(1)||"inicio";let v;
 if(K.includes(h))v=season(h);else if(h=="jugadores")v=plist();else if(h=="comparador")v=comp();else if(h=="records")v=rec();else if(h.startsWith("minijuegos"))v=mj(h.slice(11));else if(h.startsWith("partidos"))v=part(K.includes(h.slice(9))?h.slice(9):"t1");
 else if(h.startsWith("p-")){const n=ALL.find(x=>"p-"+slug(x)==h);v=n?prof(n):`<p class="nt">No encontré a ese jugador.</p>`}else v=home();
